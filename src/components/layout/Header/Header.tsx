@@ -1,0 +1,82 @@
+import logo from '../../../assets/images/logo.svg'
+import LogoText from '../../../assets/images/logoText.svg?react';
+import styles from './Header.module.css'
+import Navigation from "./Navigation.tsx";
+import ArrowIcon from '../../../assets/icons/arrow.svg?react';
+import BurgerIcon from '../../../assets/icons/burger.svg?react';
+import {useRef, useState} from "react";
+import Dropdown from "../../ui/Dropdown/Dropdown.tsx";
+import useOutsideClick from "../../../hooks/useOutsideClick.ts";
+import HeaderAuthButton from "./HeaderAuthButton.tsx";
+
+export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
+
+  const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
+  const buttonMenuRef = useRef<HTMLButtonElement | null>(null);
+  const dropdownAuthRef = useRef<HTMLDivElement | null>(null);
+  const buttonAuthRef = useRef<HTMLButtonElement | null>(null);
+
+  function closeMenu() {
+    setIsMenuOpen(false);
+  }
+  function closeAuth() {
+    setIsAuthOpen(false);
+  }
+
+  useOutsideClick( dropdownMenuRef, closeMenu, buttonMenuRef);
+  useOutsideClick( dropdownAuthRef, closeAuth, buttonAuthRef);
+
+  return (
+    <header className={styles.header}>
+      <div className="container">
+        <div className={styles.headerWrapper}>
+          <div className={styles.headerLeft}>
+            <div className={styles.headerLogoWrap}>
+              <img className={styles.headerLogo} src={logo} alt="Логотип Yeahub"/>
+              <LogoText className={styles.headerLogoText}/>
+            </div>
+            <Navigation />
+            <div className={styles.navWrapMobile}>
+              <button
+                ref={buttonMenuRef}
+                type="button"
+                className={`${styles.navWrapMobileBtn} ${isMenuOpen ? styles.opened : ''}`}
+                onClick={() => setIsMenuOpen(prev => !prev)}
+              >
+                Подготовка
+                <ArrowIcon className={styles.iconArrowDown} />
+              </button>
+              <Dropdown
+                dropdownRef={dropdownMenuRef}
+                isOpen={isMenuOpen}
+                onClose={closeMenu}
+              >
+                <Navigation className={styles.mobileNavigation}/>
+              </Dropdown>
+            </div>
+          </div>
+          <HeaderAuthButton />
+          <div className={styles.authWrapMobile}>
+            <button
+              ref={buttonAuthRef}
+              className={`${styles.burgerBtn} ${isAuthOpen ? styles.opened : ''}`}
+              onClick={() => setIsAuthOpen(prev => !prev)}
+            >
+              <BurgerIcon className={styles.iconBurger} />
+            </button>
+            <Dropdown
+              dropdownRef={dropdownAuthRef}
+              isOpen={isAuthOpen}
+              onClose={closeAuth}
+              className={styles.authDropdown}
+            >
+              <HeaderAuthButton className={styles.mobileAuthButtons}/>
+            </Dropdown>
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
