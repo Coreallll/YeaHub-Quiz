@@ -4,22 +4,21 @@ import Skeleton from "../../ui/Skeleton/Skeleton.tsx";
 export default function CollectionsListSkeleton() {
   return (
     <>
-      {/*<a href="123" className={styles.cardWrapper}>*/}
-      {/*  <img src={collection.imageSrc ?? "/images/collectionCardPlaceholder.png"} alt={collection.title} />*/}
-      {/*  <div className={styles.cardContent}>*/}
-      {/*    <ul>*/}
-      {/*      {collection.keywords.map((keyword) => (*/}
-      {/*        <li key={keyword}>{keyword}</li>*/}
-      {/*      ))}*/}
-      {/*    </ul>*/}
-      {/*  </div>*/}
-      {/*</a>*/}
       {Array.from({length: 10}).map((_, index) => (
-        <li key={index} className={`${styles.cardWrapper} ${open ? styles.cardOpen : ""}`}>
+        <li key={index} className={styles.cardWrapper}>
           <Skeleton width={157} height={157} />
           <div className={styles.cardContent}>
-            <Skeleton width={300} height={20} />
-            <Skeleton width={20} height={20} />
+            <ul className={styles.keywordsList}>
+              <Skeleton count={3} width={80} height={25} borderRadius={30} />
+            </ul>
+            <h2 className={styles.cardTitle}><Skeleton width={300} height={21} /></h2>
+            <div className={styles.cardLinks}>
+              <Skeleton width={130} height={21} />
+              <Skeleton width={130} height={21} />
+            </div>
+            <ul className={styles.specList}>
+              <Skeleton count={2} width={150} height={21} />
+            </ul>
           </div>
         </li>
 
