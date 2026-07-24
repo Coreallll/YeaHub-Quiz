@@ -14,6 +14,9 @@ interface FiltersContextValue {
   debounceKeywords: string;
 
   clearFilters: (nextSpec?: string) => void;
+
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export const FiltersContext = createContext<FiltersContextValue | null>(null);

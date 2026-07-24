@@ -9,6 +9,7 @@ interface FilterSpecializationProps {
   searchParams: URLSearchParams;
   setSearchParams: SetURLSearchParams;
   clearFilters: (nextSpec?: string) => void;
+  inactive?: boolean;
 }
 
 export default function FilterSpecializations(
@@ -26,7 +27,7 @@ export default function FilterSpecializations(
       items={specs}
       activeValue={specFilter}
       setFilter={(item: Filter) => {
-        clearFilters(item.id);
+        clearFilters(String(item.id));
         const params = replaceQueryParams(
           searchParams,
           "specializations",
@@ -34,7 +35,7 @@ export default function FilterSpecializations(
         );
         setSearchParams(params);
       }}
-      getValue={(item: Filter) => item.title}
+      getValue={(item: Filter) => item.id}
       showAllBtn
     />
   )

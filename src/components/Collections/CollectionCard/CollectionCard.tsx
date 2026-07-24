@@ -1,8 +1,12 @@
 import styles from "./CollectionCard.module.css";
 // import {useNavigate} from "react-router-dom";
+import collectionCardPlaceholder from "../../../assets/images/itemCardPlaceholder.png";
 import type {CollectionItem} from "../../../api/getColletionsData.ts";
 import star from "../../../assets/icons/star.svg"
 import question from "../../../assets/icons/question.svg"
+import {Link} from "react-router-dom";
+import {getQuestionsWord} from "../../../utils/getQuestionWord.ts";
+import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 
 interface CollectionCardProps {
   collection: CollectionItem;
@@ -12,12 +16,14 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
 
   // const navigate = useNavigate();
 
+  const {searchParams} = useFiltersContext();
+
   return (
-    <li className={styles.cardWrapper}>
+    <Link className={styles.cardWrapper} to={`/collections/${collection.id}?${searchParams.toString()}`}>
       <img
         className={styles.cardImg}
-        src={collection.imageSrc ?? "/src/assets/images/collectionCardPlaceholder.png"}
-        alt={collection.title}
+        src={collection.company?.imageSrc ?? collectionCardPlaceholder}
+        alt={collection.company?.title}
       />
       <div className={styles.cardContent}>
         <ul className={styles.keywordsList}>
@@ -27,26 +33,26 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         </ul>
         <h2 className={styles.cardTitle}>{collection.title}</h2>
         <div className={styles.cardLinks}>
-          <a className={styles.cardLink} href="">
+          <span className={styles.cardLink}>
             <img src={star} alt=""/>
             <span>
               Для участников
             </span>
-          </a>
-          <a className={styles.cardLink} href="">
+          </span>
+          <span className={styles.cardLink}>
             <img src={question} alt=""/>
             <span>
-              count вопросов
+              {collection.questionsCount} {getQuestionsWord(collection.questionsCount)}
             </span>
-          </a>
+          </span>
         </div>
         <ul className={styles.specList}>
           {collection.specializations.map((specialization) => (
-            <li className={styles.cardSpec}>{specialization.title}</li>
+            <li key={specialization.id} className={styles.cardSpec}>{specialization.title}</li>
           ))}
         </ul>
       </div>
-    </li>
+    </Link>
 
   )
 };

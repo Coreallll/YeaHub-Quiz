@@ -3,7 +3,7 @@ import {type ReactNode, type Ref, useEffect} from "react";
 
 interface DrawerProps {
   drawerRef: Ref<HTMLDivElement>;
-  isOpen: boolean;
+  isOpen?: boolean;
   children: ReactNode;
   className?: string;
 }

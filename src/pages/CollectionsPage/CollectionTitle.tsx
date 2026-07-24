@@ -2,7 +2,7 @@ import styles from "./CollectionsPage.module.css";
 import filtersBtn from "../../assets/icons/filtersBtn.svg";
 import Drawer from "../../components/ui/Drawer/Drawer.tsx";
 import closeBtn from "../../assets/icons/closeBtn.svg";
-import {useCallback, useRef, useState} from "react";
+import {type Dispatch, type SetStateAction, useCallback, useRef} from "react";
 import useOutsideClick from "../../hooks/useOutsideClick.ts";
 import Skeleton from "../../components/ui/Skeleton/Skeleton.tsx";
 import CollectionsSidebar from "./CollectionsSidebar/CollectionsSidebar.tsx";
@@ -13,20 +13,23 @@ interface TitleProps {
   isSidebarLoading: boolean;
   sidebarFiltersError: string;
   isCollectionsLoading: boolean;
+  isSidebarOpen?: boolean;
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Title(
+export default function CollectionTitle(
   {
     specs,
     isSidebarLoading,
     sidebarFiltersError,
     isCollectionsLoading,
+    isSidebarOpen,
+    setIsSidebarOpen,
   }: TitleProps
 ) {
 
   const sidebarButtonRef = useRef<HTMLButtonElement>(null);
   const collectionsDrawerRef = useRef<HTMLDivElement | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const sidebarClose = useCallback(() => {
     setIsSidebarOpen(false);

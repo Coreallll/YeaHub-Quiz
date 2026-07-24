@@ -5,7 +5,7 @@ export default function CollectionsListSkeleton() {
   return (
     <>
       {Array.from({length: 10}).map((_, index) => (
-        <li key={index} className={styles.cardWrapper}>
+        <div key={index} className={styles.cardWrapper}>
           <Skeleton width={157} height={157} />
           <div className={styles.cardContent}>
             <ul className={styles.keywordsList}>
@@ -20,7 +20,7 @@ export default function CollectionsListSkeleton() {
               <Skeleton count={2} width={150} height={21} />
             </ul>
           </div>
-        </li>
+        </div>
 
       ))}
     </>

@@ -4,7 +4,8 @@ import PaginationSkeleton from "./PaginationSkeleton.tsx";
 import {getPaginationItems} from "../../../utils/getPaginationItems.ts";
 
 interface PaginationProps {
-  isCollectionsLoading: boolean;
+  isCollectionsLoading?: boolean;
+  isQuestionsLoading?: boolean;
   currentPage: number;
   totalPages: number;
   handleNextPage: () => void;

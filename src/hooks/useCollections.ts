@@ -4,7 +4,7 @@ import {useFiltersContext} from "./useFiltersContext.ts";
 import {type CollectionItem, getCollectionsItems} from "../api/getColletionsData.ts";
 import {usePagination} from "./usePagination.ts";
 
-export const useCollectionsPageData = () => {
+export const useCollections = () => {
 
   const { cardsOnPage } = useFiltersContext();
 
@@ -12,18 +12,8 @@ export const useCollectionsPageData = () => {
   const [isCollectionsLoading, setIsCollectionsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [totalPages, setTotalPages] = useState(1);
-
-  const {
-    currentPage,
-    setCurrentPage,
-    handleNextPage,
-    handlePrevPage,
-    handlePageClick,
-  } = usePagination({
-    totalPages,
-    initialPage: 1,
-  });
+  const [totalCollectionsPages, setTotalCollectionsPages] = useState(1);
+  const { currentPage } = usePagination(totalCollectionsPages);
 
   const {
     searchValue,
@@ -45,7 +35,7 @@ export const useCollectionsPageData = () => {
           debounceKeywords,
         });
         setCollectionsData(response.data);
-        setTotalPages(Math.ceil(response.total / response.limit));
+        setTotalCollectionsPages(Math.ceil(response.total / response.limit));
       } catch(error) {
         console.log(error)
         setErrorMessage(`Не удалось загрузить коллекции`);
@@ -59,7 +49,7 @@ export const useCollectionsPageData = () => {
     cardsOnPage,
     specFilter,
     debounceKeywords,
-    setTotalPages
+    setTotalCollectionsPages
   ]);
 
   return {
@@ -67,11 +57,7 @@ export const useCollectionsPageData = () => {
     isCollectionsLoading,
     errorMessage,
     currentPage,
-    setCurrentPage,
-    handleNextPage,
-    handlePrevPage,
-    handlePageClick,
-    totalPages,
+    totalCollectionsPages,
     cardsOnPage,
     debounceKeywords,
   }

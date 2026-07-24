@@ -1,8 +1,11 @@
-export function replaceQueryParams(searchParams, key, value) {
+export function replaceQueryParams(
+  searchParams: URLSearchParams,
+  key: string,
+  value: string | number | null) {
   const params = Object.fromEntries(searchParams);
 
   if (value) {
-    params[key] = value;
+    params[key] = String(value);
   } else {
     delete params[key];
   }

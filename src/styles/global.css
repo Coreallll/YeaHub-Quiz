@@ -82,6 +82,7 @@ body {
     flex: 1 1 64%;
     padding: 25px 20px 40px;
     width: 100%;
+    max-width: 800px;
     border-radius: 24px;
     background-color: var(--white900);
 }

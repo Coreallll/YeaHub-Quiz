@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = 'https://api.yeatwork.ru';
 
 export interface Filter {
-  id: string;
+  id: number;
   title: string;
   slug: string;
   description: string;

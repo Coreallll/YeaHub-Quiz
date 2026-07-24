@@ -1,12 +1,12 @@
 import CollectionsList from "../../components/Collections/CollectionsList/CollectionsList.tsx";
 import styles from "./CollectionsPage.module.css";
 import Pagination from "../../components/ui/Pagination/Pagination.tsx";
-import Title from "./Title.jsx";
-// import CollectionsSidebar from "./CollectionsSidebar/CollectionsSidebar.tsx";
-import {useCollectionsPageData} from "../../hooks/useCollectionsPage.js";
+import CollectionTitle from "./CollectionTitle.tsx";
+import {useCollections} from "../../hooks/useCollections.ts";
 import {useSidebarFiltersData} from "../../hooks/useSidebarFiltersData.ts";
 import {usePagination} from "../../hooks/usePagination.ts";
 import CollectionsSidebar from "./CollectionsSidebar/CollectionsSidebar.tsx";
+import {useFiltersContext} from "../../hooks/useFiltersContext.ts";
 
 export default function CollectionsPage() {
 
@@ -15,18 +15,15 @@ export default function CollectionsPage() {
     isCollectionsLoading,
     debounceKeywords,
 
-    totalPages,
-  } = useCollectionsPageData();
+    totalCollectionsPages,
+  } = useCollections();
 
   const {
     currentPage,
     handleNextPage,
     handlePrevPage,
     handlePageClick,
-  } = usePagination({
-    totalPages,
-    initialPage: 1,
-  });
+  } = usePagination(totalCollectionsPages);
 
   const {
     specs,
@@ -34,11 +31,18 @@ export default function CollectionsPage() {
     sidebarFiltersError,
   } = useSidebarFiltersData();
 
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+  } = useFiltersContext();
+
   return (
     <div className="mainWrapper">
       <div className="mainContent">
-        <Title
+        <CollectionTitle
           specs={specs}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
           isSidebarLoading={isSidebarLoading}
           sidebarFiltersError={sidebarFiltersError}
           isCollectionsLoading={isCollectionsLoading}
@@ -53,7 +57,7 @@ export default function CollectionsPage() {
         <Pagination
           isCollectionsLoading={isCollectionsLoading}
           currentPage={currentPage}
-          totalPages={totalPages}
+          totalPages={totalCollectionsPages}
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}
           handlePageClick={handlePageClick}

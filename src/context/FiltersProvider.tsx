@@ -19,10 +19,12 @@ export function FiltersProvider({children}: FiltersProviderProps) {
   const [searchValue, setSearchValue] = useState(searchQuery);
   const debounceKeywords = useDebounce(searchValue, 800);
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  function clearFilters(nextSpec = "react-frontend-developer") {
+
+  function clearFilters(nextSpec: string = "11") {
     setSearchParams({
-      spec: nextSpec,
+      specializations: nextSpec,
     });
 
     setSearchValue("");
@@ -41,6 +43,9 @@ export function FiltersProvider({children}: FiltersProviderProps) {
     debounceKeywords,
 
     clearFilters,
+
+    isSidebarOpen,
+    setIsSidebarOpen,
   }
 
   return (

@@ -48,6 +48,8 @@ export default function FilterSection(
 
   const visibleItems = showAll ? items : items?.slice(0, 5);
 
+
+
   const renderedItems = visibleItems.map(item => {
     const value = String(getValue(item));
     const label = getLabel(item);
@@ -56,7 +58,6 @@ export default function FilterSection(
       : multiple
         ? (activeValue || []).includes(value)
         : activeValue === value;
-
 
     return (
       <li
