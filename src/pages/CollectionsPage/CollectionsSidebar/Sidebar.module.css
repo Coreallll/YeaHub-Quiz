@@ -46,8 +46,10 @@
 .filterButton {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 10px 12px;
+    min-width: 40px;
     height: 42px;
     border: 1px solid var(--black200);
     border-radius: 12px;
@@ -56,6 +58,7 @@
     img {
         width: 30px;
         height: 30px;
+        border-radius: 6px;
     }
 
     &:hover {
@@ -64,7 +67,7 @@
     }
 
     &.inactive {
-        border-color: var(--purple700);
+        /*border-color: var(--purple700);*/
         pointer-events: none;
         cursor: default;
     }
@@ -74,8 +77,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    max-height: 500px;
-    overflow-y: auto;
 }
 .filtersAll {
     max-width: max-content;
@@ -99,5 +100,9 @@
 @media(max-width: 1024px) {
     .sidebar {
         display: none;
+    }
+    .filtersList {
+        max-height: 500px;
+        overflow-y: auto;
     }
 }

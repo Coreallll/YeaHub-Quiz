@@ -1,4 +1,8 @@
-export function toggleQueryArrayValues(searchParams, key, values) {
+export function toggleQueryArrayValues(
+  searchParams: URLSearchParams,
+  key: string,
+  values: string[] | number[],
+) {
   const params = new URLSearchParams(searchParams);
 
   const current = params.get(key)?.split(",") ?? [];

@@ -18,6 +18,7 @@ export const useCollections = () => {
   const {
     searchValue,
     specFilter,
+    accessFilter
   } = useFiltersContext();
 
   const debounceKeywords = useDebounce(searchValue, 800);
@@ -33,6 +34,7 @@ export const useCollections = () => {
           cardsOnPage,
           specFilter,
           debounceKeywords,
+          accessFilter,
         });
         setCollectionsData(response.data);
         setTotalCollectionsPages(Math.ceil(response.total / response.limit));
@@ -49,12 +51,14 @@ export const useCollections = () => {
     cardsOnPage,
     specFilter,
     debounceKeywords,
-    setTotalCollectionsPages
+    setTotalCollectionsPages,
+    accessFilter,
   ]);
 
   return {
     collectionsData,
     isCollectionsLoading,
+    setIsCollectionsLoading,
     errorMessage,
     currentPage,
     totalCollectionsPages,

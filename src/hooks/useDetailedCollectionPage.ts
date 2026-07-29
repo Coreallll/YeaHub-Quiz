@@ -1,16 +1,10 @@
 import {useEffect, useState} from "react";
 import {getCollectionById} from "../api/getCollectionIdData.ts";
 import {useParams} from "react-router-dom";
-
-export interface Collection {
-  id: number;
-  title: string;
-  description: string;
-  imageSrc: string | null;
-}
+import type {CollectionItem} from "../api/getColletionsData.ts";
 
 export default function useDetailedCollectionPage() {
-  const [collection, setCollection] = useState<Collection | null>(null);
+  const [collection, setCollection] = useState<CollectionItem | null>(null);
   const [isCollectionLoading, setIsCollectionLoading] = useState(false);
 
   const { id } = useParams();

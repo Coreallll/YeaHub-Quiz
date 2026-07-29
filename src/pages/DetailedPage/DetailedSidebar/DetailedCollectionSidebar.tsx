@@ -1,13 +1,14 @@
 import stylesSidebar from "../../CollectionsPage/CollectionsSidebar/Sidebar.module.css";
-import DetailedSidebarSkeleton from "./DetailedSidebarSkeleton.js";
 import FilterSpecializations from "../../../components/Filters/FilterSpecializations.tsx";
-import type {Collection} from "../../../hooks/useDetailedCollectionPage.ts";
 import type {Filter} from "../../../api/getFilters.ts";
 import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
+import FilterSection from "../../../components/Filters/FilterSection.tsx";
+import SidebarAuthor from "./SidebarAuthor.tsx";
+import type {CollectionItem} from "../../../api/getColletionsData.ts";
+import SidebarTags from "./SidebarTags.tsx";
 
 interface DetailedCollectionSidebarProps {
-  collection: Collection;
-  isQuestionsLoading: boolean;
+  collection: CollectionItem;
   className?: string;
   specs: Filter[];
 }
@@ -15,7 +16,6 @@ interface DetailedCollectionSidebarProps {
 export default function DetailedCollectionSidebar(
   {
     collection,
-    isQuestionsLoading,
     specs,
     className =""
   }: DetailedCollectionSidebarProps) {
@@ -31,19 +31,41 @@ export default function DetailedCollectionSidebar(
 
   return (
     <aside className={`${stylesSidebar.sidebar} ${className}`}>
-      {isQuestionsLoading ? (
-        <DetailedSidebarSkeleton />
-      ) : (
-        <>
-          <FilterSpecializations
-            specs={specs}
-            specFilter={specFilter}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-            clearFilters={clearFilters}
-          />
-        </>
-      )}
+      <FilterSpecializations
+        specs={specs}
+        specFilter={specFilter}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+        clearFilters={clearFilters}
+      />
+      <FilterSection
+        title="Доступ"
+        inactive
+        isFree={collection.isFree}
+      />
+      {collection.company &&
+        <FilterSection
+          title="Компания"
+          items={[collection.company]}
+          getValue={(company) => company.id}
+          getLabel={(company) => company.title}
+          getImageSrc={(company) => company.imageSrc}
+          inactive
+        />
+      }
+      {collection.questionsCount > 0 &&
+        <FilterSection
+          title="Количество вопросов"
+          inactive
+          questionsCount={collection.questionsCount}
+        />
+      }
+      {collection.keywords &&
+        <SidebarTags item={collection} />
+      }
+      {collection.createdBy &&
+        <SidebarAuthor item={collection} />
+      }
     </aside>
   )
 }

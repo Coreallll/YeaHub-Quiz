@@ -16,6 +16,7 @@ interface PaginationProps {
 export default function Pagination(
   {
     isCollectionsLoading,
+    isQuestionsLoading,
     currentPage,
     totalPages,
     handleNextPage,
@@ -26,7 +27,7 @@ export default function Pagination(
   const paginationItems = getPaginationItems({totalPages, currentPage});
 
   return (
-    isCollectionsLoading ? (
+    isCollectionsLoading || isQuestionsLoading ? (
         <PaginationSkeleton />
     ) : (
       totalPages > 1 ? (

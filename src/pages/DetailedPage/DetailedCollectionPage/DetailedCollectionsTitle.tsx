@@ -1,6 +1,5 @@
 import {type Dispatch, type SetStateAction, useRef} from "react";
 import useOutsideClick from "../../../hooks/useOutsideClick.ts";
-import {type Collection} from "../../../hooks/useDetailedCollectionPage.ts";
 import Drawer from "../../../components/ui/Drawer/Drawer.tsx";
 import closeBtn from "../../../assets/icons/closeBtn.svg";
 import stylesCollectionsPage from "../../CollectionsPage/CollectionsPage.module.css"
@@ -8,20 +7,20 @@ import styles from "./DetailedCollectionPage.module.css";
 import DetailedTitle from "../../../components/Detailed/DetailedTitle.tsx";
 import DetailedCollectionSidebar from "../DetailedSidebar/DetailedCollectionSidebar.tsx";
 import type {Filter} from "../../../api/getFilters.ts";
+import type {CollectionItem} from "../../../api/getColletionsData.ts";
 
 interface DetailedCollectionTitleProps {
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
   isQuestionsLoading: boolean;
   specs: Filter[];
-  collection: Collection;
+  collection: CollectionItem;
 }
 
 export default function DetailedCollectionTitle(
   {
     isSidebarOpen,
     setIsSidebarOpen,
-    isQuestionsLoading,
     specs,
     collection
   }: DetailedCollectionTitleProps) {
@@ -56,7 +55,6 @@ export default function DetailedCollectionTitle(
 
         <DetailedCollectionSidebar
           collection={collection}
-          isQuestionsLoading={isQuestionsLoading}
           specs={specs}
           className={stylesCollectionsPage.fixedSidebar}
         />

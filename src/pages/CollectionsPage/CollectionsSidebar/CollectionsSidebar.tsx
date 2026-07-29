@@ -4,6 +4,7 @@ import FilterSpecializations from "../../../components/Filters/FilterSpecializat
 import CollectionsSidebarSkeleton from "./CollectionsSidebarSkeleton.tsx";
 import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 import type {Filter} from "../../../api/getFilters.ts";
+import FilterAccess from "../../../components/Filters/FiltersAccess.tsx";
 
 interface CollectionsSidebarProps {
   specs: Filter[];
@@ -17,7 +18,7 @@ export default function CollectionsSidebar(
     specs,
     isSidebarLoading,
     sidebarFiltersError,
-    className =""
+    className = ""
   }: CollectionsSidebarProps) {
 
   const {
@@ -28,6 +29,7 @@ export default function CollectionsSidebar(
 
     specFilter,
     clearFilters,
+    accessFilter
 
   } = useFiltersContext();
 
@@ -52,6 +54,11 @@ export default function CollectionsSidebar(
             setSearchParams={setSearchParams}
 
             clearFilters={clearFilters}
+          />
+          <FilterAccess
+            accessFilter={accessFilter}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
           />
         </>
       )}

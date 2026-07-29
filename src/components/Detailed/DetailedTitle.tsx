@@ -1,12 +1,13 @@
 import itemCardPlaceholder from "../../assets/images/itemCardPlaceholder.png";
 import stylesCollectionsPage from "../../pages/CollectionsPage/CollectionsPage.module.css";
 import filtersBtn from "../../assets/icons/filtersBtn.svg";
-import type {Collection} from "../../hooks/useDetailedCollectionPage.ts";
 import type {Dispatch, RefObject, SetStateAction} from "react";
 import styles from "./DetailedTitle.module.css"
+import type {CollectionItem} from "../../api/getColletionsData.ts";
+import type {QuestionItem} from "../../api/getQuestionsData.ts";
 
 interface DetailedTitleProps {
-  item: Collection | Question;
+  item: CollectionItem | QuestionItem;
   detailedSidebarButtonRef: RefObject<HTMLButtonElement | null>;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }

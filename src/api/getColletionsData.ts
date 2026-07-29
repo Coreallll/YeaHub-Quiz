@@ -7,9 +7,10 @@ interface GetCollectionsItemsParams {
   cardsOnPage: number;
   specFilter?: string | null;
   debounceKeywords?: string;
+  accessFilter?: string;
 }
 
-interface Company {
+export interface Company {
   id: string;
   title: string;
   description: string;
@@ -23,6 +24,11 @@ interface Specializations {
   imageSrc: string | null;
 }
 
+export interface User {
+  id: string;
+  username: string;
+}
+
 export interface CollectionItem {
   id: string;
   title: string;
@@ -34,6 +40,7 @@ export interface CollectionItem {
   company: Company;
   specializations: Specializations[];
   questionsCount: number;
+  createdBy: User;
 }
 
 interface CollectionsResponse {
@@ -48,6 +55,7 @@ export async function getCollectionsItems({
   cardsOnPage,
   specFilter,
   debounceKeywords,
+  accessFilter,
 }: GetCollectionsItemsParams): Promise<CollectionsResponse> {
 
   const params = new URLSearchParams();
@@ -60,7 +68,11 @@ export async function getCollectionsItems({
   }
 
   if(debounceKeywords) {
-    params.set('titleOrDescriptionSearch', debounceKeywords.toLowerCase().trim());
+    params.set('titleOrDescriptionSearch', debounceKeywords.trim());
+  }
+
+  if (accessFilter) {
+    params.set('isFree', accessFilter);
   }
 
   const url = `${BASE_URL}/collections/public?${params.toString()}`

@@ -1,82 +1,93 @@
 import styles from '../../pages/CollectionsPage/CollectionsSidebar/Sidebar.module.css'
 import FilterButton from "../ui/FilterButton/FilterButton.js";
 import {useState} from "react";
-import type {Filter} from "../../api/getFilters.ts";
+import FilterIsFree from "./FilterIsFree.tsx";
+import FilterQuestionsCount from "./FilterQuestionsCount.tsx";
 
 type ActiveValue = string | string[] | null;
 
-interface FilterSectionProps {
+export interface FilterSectionProps<T> {
   title: string;
-  items: Filter[];
-  activeValue: ActiveValue;
+  items?: T[];
+  activeValue?: ActiveValue;
 
-  getValue: (item: Filter) => string | number;
-  getLabel?: (item: Filter) => string;
+  getValue?: (item: T) => string | number;
+  getLabel?: (item: T) => string;
+  getImageSrc?: (item: T) => string | null | undefined;
 
-  setFilter?: (item: Filter) => void;
+  setFilter?: (item: T) => void;
   multiple?: boolean;
   showAllBtn?: boolean;
   inactive?: boolean;
 
   isActive?: (
-    item: Filter,
+    item: T,
     activeValue: ActiveValue
   ) => boolean;
 
-  onChangeParams?: (
-    item: Filter,
-    value: string
-  ) => void;
+  isFree?: boolean;
+  questionsCount?: number;
 }
 
-export default function FilterSection(
+export default function FilterSection<T>(
   {
     title,
     items,
     activeValue,
     setFilter,
     getValue,
-    getLabel = (item) => item.title,
+    getLabel,
+    getImageSrc,
     multiple = false,
     showAllBtn,
     isActive: getIsActive,
     inactive,
-    onChangeParams,
-  }: FilterSectionProps) {
+    isFree,
+    questionsCount,
+  }: FilterSectionProps<T>) {
 
   const [showAll, setShowAll] = useState(false);
 
+  if(questionsCount) {
+    return <FilterQuestionsCount title={title} inactive={inactive} questionsCount={questionsCount} />
+  }
+
+  if(isFree !== undefined) {
+    return <FilterIsFree title={title} isFree={isFree} inactive={inactive} />
+  }
+
+  if(!items || !getValue) return (
+    <div>Произошла ошибка при загрузке фильтров</div>
+  );
+
   const visibleItems = showAll ? items : items?.slice(0, 5);
-
-
 
   const renderedItems = visibleItems.map(item => {
     const value = String(getValue(item));
-    const label = getLabel(item);
-    const isActive = getIsActive
+    const label = getLabel
+      ? getLabel(item)
+      : String(item);
+    const isActive = activeValue && getIsActive
       ? getIsActive(item, activeValue)
       : multiple
         ? (activeValue || []).includes(value)
         : activeValue === value;
+    const imageSrc = getImageSrc?.(item);
 
     return (
       <li
-        className={styles.filterItem}
-        key={item.id ?? value}
+          className={styles.filterItem}
+        key={value}
       >
         <FilterButton
-          className={`${isActive ? styles.filterActive : ""} ${inactive && styles.inactive}`}
+          className={`${isActive ? styles.filterActive : ""} ${inactive ? styles.inactive : ""}`}
           onClick={() => {
             if (setFilter) {
               setFilter(item);
             }
-
-            if(onChangeParams) {
-              onChangeParams(item, value);
-            }
           }}
         >
-          {item.imageSrc && <img src={item.imageSrc} alt={label} />}
+          {imageSrc && <img src={imageSrc} alt={label} />}
           <span>{label}</span>
         </FilterButton>
       </li>

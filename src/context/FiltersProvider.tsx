@@ -21,6 +21,8 @@ export function FiltersProvider({children}: FiltersProviderProps) {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const accessFilter = searchParams.get("isFree") ?? "";
+
 
   function clearFilters(nextSpec: string = "11") {
     setSearchParams({
@@ -46,6 +48,7 @@ export function FiltersProvider({children}: FiltersProviderProps) {
 
     isSidebarOpen,
     setIsSidebarOpen,
+    accessFilter
   }
 
   return (

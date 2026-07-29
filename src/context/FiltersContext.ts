@@ -17,6 +17,8 @@ interface FiltersContextValue {
 
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
+
+  accessFilter: string;
 }
 
 export const FiltersContext = createContext<FiltersContextValue | null>(null);

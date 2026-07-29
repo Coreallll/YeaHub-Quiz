@@ -34,10 +34,12 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         <h2 className={styles.cardTitle}>{collection.title}</h2>
         <div className={styles.cardLinks}>
           <span className={styles.cardLink}>
-            <img src={star} alt=""/>
-            <span>
-              Для участников
-            </span>
+            {collection.isFree === false && <img src={star} alt=""/>}
+            {collection.isFree === true ? (
+              <span>Для всех</span>
+              ) : (
+              <span>Для участников</span>
+            )}
           </span>
           <span className={styles.cardLink}>
             <img src={question} alt=""/>

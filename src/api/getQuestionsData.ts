@@ -1,4 +1,5 @@
 import axios from "axios";
+import type {User} from "./getColletionsData.ts";
 
 const BASE_URL = 'https://api.yeatwork.ru';
 
@@ -18,6 +19,8 @@ export interface QuestionItem {
   shortAnswer: string;
   rate: number;
   complexity: number;
+  keywords: string[];
+  createdBy: User;
 }
 
 interface QuestionsResponse {

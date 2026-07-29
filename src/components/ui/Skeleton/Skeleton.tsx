@@ -12,7 +12,7 @@ export default function Skeleton({ count, className="", width, height, borderRad
 
   return (
     Array.from({length: count || 1}).map((_, index) => (
-      <li
+      <div
         key={index}
         className={className}
         style={{
@@ -26,7 +26,7 @@ export default function Skeleton({ count, className="", width, height, borderRad
             borderRadius: borderRadius ? `${borderRadius}px` : "4px",
           }}
         ></div>
-      </li>
+      </div>
     ))
   )
 }

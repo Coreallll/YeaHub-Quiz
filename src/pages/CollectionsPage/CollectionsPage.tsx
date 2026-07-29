@@ -13,8 +13,6 @@ export default function CollectionsPage() {
   const {
     collectionsData,
     isCollectionsLoading,
-    debounceKeywords,
-
     totalCollectionsPages,
   } = useCollections();
 
@@ -32,6 +30,7 @@ export default function CollectionsPage() {
   } = useSidebarFiltersData();
 
   const {
+    clearFilters,
     isSidebarOpen,
     setIsSidebarOpen,
   } = useFiltersContext();
@@ -51,7 +50,7 @@ export default function CollectionsPage() {
         <CollectionsList
           collectionsData={collectionsData}
           isCollectionsLoading={isCollectionsLoading}
-          debounceKeywords={debounceKeywords}
+          clearFilters={clearFilters}
         />
 
         <Pagination

@@ -26,16 +26,17 @@ export default function FilterSpecializations(
       title="Специализация"
       items={specs}
       activeValue={specFilter}
-      setFilter={(item: Filter) => {
-        clearFilters(String(item.id));
+      setFilter={(spec) => {
+        clearFilters(String(spec.id));
         const params = replaceQueryParams(
           searchParams,
           "specializations",
-          item.id
+          spec.id
         );
         setSearchParams(params);
       }}
-      getValue={(item: Filter) => item.id}
+      getLabel={(spec) => spec.title}
+      getValue={(spec) => spec.id}
       showAllBtn
     />
   )

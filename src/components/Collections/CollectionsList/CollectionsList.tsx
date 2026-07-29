@@ -1,7 +1,6 @@
 import {memo} from "react";
 import CollectionCard from "../CollectionCard/CollectionCard.tsx";
 import styles from "./CollectionList.module.css";
-import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 import CollectionsListSkeleton from "./CollectionsListSkeleton.tsx";
 import type {CollectionItem} from "../../../api/getColletionsData.ts";
 
@@ -9,7 +8,7 @@ interface CollectionsListProps {
   collectionsData: CollectionItem[];
   isCollectionsLoading: boolean;
   errorMessage?: string;
-  debounceKeywords?: string;
+  clearFilters: (nextSpec?: string) => void;
 }
 
 export default memo(function CollectionsList(
@@ -17,21 +16,14 @@ export default memo(function CollectionsList(
     collectionsData,
     isCollectionsLoading,
     errorMessage,
-    debounceKeywords,
-  }: CollectionsListProps) {
-
-  const {
-    searchValue,
     clearFilters,
-  } = useFiltersContext();
-
-  const isDebouncing = searchValue !== debounceKeywords;
+  }: CollectionsListProps) {
 
   return (
     <div className={styles.collectionsList}>
       {errorMessage ? (
           <p>{errorMessage}</p>
-        ) : isCollectionsLoading || isDebouncing ? (
+        ) : isCollectionsLoading ? (
           <CollectionsListSkeleton />
         ) : (
           (collectionsData.length > 0 ? (

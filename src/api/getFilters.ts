@@ -3,11 +3,10 @@ import axios from "axios";
 const BASE_URL = 'https://api.yeatwork.ru';
 
 export interface Filter {
-  id: number;
+  id: string | number;
   title: string;
-  slug: string;
   description: string;
-  imageSrc: string;
+  imageSrc: string | null;
 }
 
 interface ApiResponse<T> {

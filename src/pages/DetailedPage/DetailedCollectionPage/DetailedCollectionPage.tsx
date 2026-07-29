@@ -6,6 +6,7 @@ import DetailedCollectionTitle from "./DetailedCollectionsTitle.tsx";
 import {useQuestions} from "../../../hooks/useQuestions.ts";
 import DetailedCollectionSidebar from "../DetailedSidebar/DetailedCollectionSidebar.tsx";
 import useDetailedCollectionPage from "../../../hooks/useDetailedCollectionPage.ts";
+import DetailedCollectionSkeleton from "./DetailedCollectionSkeleton.tsx";
 
 export default function DetailedCollectionPage() {
 
@@ -25,6 +26,13 @@ export default function DetailedCollectionPage() {
     isQuestionsLoading
   } = useQuestions();
 
+  if (isCollectionLoading) {
+    return (
+      <DetailedCollectionSkeleton />
+    )
+  }
+
+
   if (!collection) {
     return (
       <div className={styles.contentWrapper}>
@@ -35,35 +43,29 @@ export default function DetailedCollectionPage() {
     )
   }
 
+
   return (
     <div className="mainWrapper">
-      {isCollectionLoading ? (
-         <DetailedCollectionSkeleton />
-        ) : (
-        <>
-          <div className={styles.contentWrapper}>
-            <DetailedCollectionTitle
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
-              isQuestionsLoading={isQuestionsLoading}
-              specs={specs}
-              collection={collection}
-            />
-            <Questions
-              specs={specs}
-              questionsData={questionsData}
-              errorMessage={errorMessage}
-              totalQuestionsPages={totalQuestionsPages}
-              isQuestionsLoading={isQuestionsLoading}
-            />
-          </div>
-          <DetailedCollectionSidebar
-            specs={specs}
-            collection={collection}
-            isQuestionsLoading={isQuestionsLoading}
-          />
-        </>
-      )}
+      <div className={styles.contentWrapper}>
+        <DetailedCollectionTitle
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+          isQuestionsLoading={isQuestionsLoading}
+          specs={specs}
+          collection={collection}
+        />
+        <Questions
+          specs={specs}
+          questionsData={questionsData}
+          errorMessage={errorMessage}
+          totalQuestionsPages={totalQuestionsPages}
+          isQuestionsLoading={isQuestionsLoading}
+        />
+      </div>
+      <DetailedCollectionSidebar
+        specs={specs}
+        collection={collection}
+      />
     </div>
   )
 }

@@ -8,6 +8,7 @@
 .titleMobileWrapper {
     display: flex;
     gap: 20px;
+    width: 100%;
 }
 .titleText {
     display: flex;
