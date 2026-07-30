@@ -3,9 +3,9 @@ import FilterSpecializations from "../../../components/Filters/FilterSpecializat
 import type {Filter} from "../../../api/getFilters.ts";
 import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 import FilterSection from "../../../components/Filters/FilterSection.tsx";
-import SidebarAuthor from "./SidebarAuthor.tsx";
+import DetailedSidebarAuthor from "../DetailedSidebar/DetailedSidebarAuthor.tsx";
 import type {CollectionItem} from "../../../api/getColletionsData.ts";
-import SidebarTags from "./SidebarTags.tsx";
+import DetailedSidebarTags from "../DetailedSidebar/DetailedSidebarTags.tsx";
 
 interface DetailedCollectionSidebarProps {
   collection: CollectionItem;
@@ -13,7 +13,7 @@ interface DetailedCollectionSidebarProps {
   specs: Filter[];
 }
 
-export default function DetailedCollectionSidebar(
+export default function DetailedCollectionPageSidebar(
   {
     collection,
     specs,
@@ -61,10 +61,10 @@ export default function DetailedCollectionSidebar(
         />
       }
       {collection.keywords &&
-        <SidebarTags item={collection} />
+        <DetailedSidebarTags item={collection} />
       }
       {collection.createdBy &&
-        <SidebarAuthor item={collection} />
+        <DetailedSidebarAuthor item={collection} />
       }
     </aside>
   )

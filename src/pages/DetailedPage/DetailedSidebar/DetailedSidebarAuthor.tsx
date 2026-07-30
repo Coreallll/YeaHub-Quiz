@@ -4,10 +4,10 @@ import type {CollectionItem} from "../../../api/getColletionsData.ts";
 import type {QuestionItem} from "../../../api/getQuestionsData.ts";
 
 interface SidebarAuthorProps {
-  item: CollectionItem | QuestionItem;
+  item: CollectionItem | QuestionItem | null;
 }
 
-export default function SidebarAuthor({ item }:SidebarAuthorProps) {
+export default function DetailedSidebarAuthor({ item }:SidebarAuthorProps) {
   return (
     <section className={stylesSidebar.section}>
       <h3 className={styles.author}>

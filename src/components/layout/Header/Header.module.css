@@ -158,7 +158,7 @@
             }
         }
         .navLink {
-            display: block;
+            display: flex;
             padding: 6px 10px;
             min-width: 192px;
             font-size: 14px;

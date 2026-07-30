@@ -4,10 +4,10 @@ import type {CollectionItem} from "../../../api/getColletionsData.ts";
 import type {QuestionItem} from "../../../api/getQuestionsData.ts";
 
 interface SidebarTagsProps {
-  item: CollectionItem | QuestionItem;
+  item: CollectionItem | QuestionItem | null;
 }
 
-export default function SidebarTags({ item }: SidebarTagsProps) {
+export default function DetailedSidebarTags({ item }: SidebarTagsProps) {
   return (
     <section className={stylesSidebar.section}>
       <h3 className={stylesSidebar.sectionTitle}>Ключевые слова:</h3>

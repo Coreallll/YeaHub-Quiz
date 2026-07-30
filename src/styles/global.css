@@ -93,4 +93,12 @@ b, strong {
     .container {
         padding: 0 30px;
     }
+    .mainContent {
+        padding: 20px 10px;
+    }
+}
+@media(max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
 }

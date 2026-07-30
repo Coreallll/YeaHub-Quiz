@@ -5,14 +5,7 @@ export default function Navigation({className=""}) {
     <nav className={`${styles.nav} ${className}`}>
       <ul className={styles.navList}>
         <li>
-          <NavLink
-            to="/questions"
-            className={({ isActive }) =>
-              `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`
-            }
-          >
-            База вопросов
-          </NavLink>
+          <a href="#" className={styles.navLink}>База вопросов</a>
         </li>
         <li>
           <NavLink

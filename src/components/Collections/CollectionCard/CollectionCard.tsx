@@ -1,5 +1,4 @@
 import styles from "./CollectionCard.module.css";
-// import {useNavigate} from "react-router-dom";
 import collectionCardPlaceholder from "../../../assets/images/itemCardPlaceholder.png";
 import type {CollectionItem} from "../../../api/getColletionsData.ts";
 import star from "../../../assets/icons/star.svg"
@@ -13,8 +12,6 @@ interface CollectionCardProps {
 }
 
 export default function CollectionCard({ collection }: CollectionCardProps) {
-
-  // const navigate = useNavigate();
 
   const {searchParams} = useFiltersContext();
 
@@ -55,6 +52,5 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         </ul>
       </div>
     </Link>
-
   )
 };

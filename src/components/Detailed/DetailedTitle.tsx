@@ -7,7 +7,7 @@ import type {CollectionItem} from "../../api/getColletionsData.ts";
 import type {QuestionItem} from "../../api/getQuestionsData.ts";
 
 interface DetailedTitleProps {
-  item: CollectionItem | QuestionItem;
+  item: CollectionItem | QuestionItem | null;
   detailedSidebarButtonRef: RefObject<HTMLButtonElement | null>;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }

@@ -21,7 +21,6 @@ export default function CollectionsListSkeleton() {
             </ul>
           </div>
         </div>
-
       ))}
     </>
   )

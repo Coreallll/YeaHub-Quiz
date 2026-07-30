@@ -10,6 +10,13 @@ interface GetQuestionsItemsParams {
   debounceKeywords?: string;
 }
 
+interface Skills {
+  id: number;
+  title: string;
+  description: string;
+  imageSrc: string;
+}
+
 export interface QuestionItem {
   id: number;
   title: string;
@@ -21,6 +28,7 @@ export interface QuestionItem {
   complexity: number;
   keywords: string[];
   createdBy: User;
+  questionSkills: Skills[];
 }
 
 interface QuestionsResponse {

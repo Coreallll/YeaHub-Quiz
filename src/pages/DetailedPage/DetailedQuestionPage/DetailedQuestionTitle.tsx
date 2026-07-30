@@ -3,27 +3,23 @@ import useOutsideClick from "../../../hooks/useOutsideClick.ts";
 import Drawer from "../../../components/ui/Drawer/Drawer.tsx";
 import closeBtn from "../../../assets/icons/closeBtn.svg";
 import stylesCollectionsPage from "../../CollectionsPage/CollectionsPage.module.css"
-import styles from "./DetailedCollectionPage.module.css";
+import styles from "../DetailedCollectionPage/DetailedCollectionPage.module.css";
 import DetailedTitle from "../../../components/Detailed/DetailedTitle.tsx";
-import DetailedCollectionSidebar from "../DetailedSidebar/DetailedCollectionSidebar.tsx";
-import type {Filter} from "../../../api/getFilters.ts";
-import type {CollectionItem} from "../../../api/getColletionsData.ts";
+import DetailedQuestionPageSidebar from "../DetailedQuestionPage/DetailedQuestionPageSidebar/DetailedQuestionPageSidebar.tsx";
+import type {QuestionItem} from "../../../api/getQuestionsData.ts";
 
-interface DetailedCollectionTitleProps {
+interface DetailedQuestionTitleProps {
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
-  isQuestionsLoading: boolean;
-  specs: Filter[];
-  collection: CollectionItem;
+  question: QuestionItem;
 }
 
-export default function DetailedCollectionTitle(
+export default function DetailedQuestionTitle(
   {
     isSidebarOpen,
     setIsSidebarOpen,
-    specs,
-    collection
-  }: DetailedCollectionTitleProps) {
+    question
+  }: DetailedQuestionTitleProps) {
 
   const detailedDrawerRef = useRef(null);
   const detailedSidebarButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -37,7 +33,7 @@ export default function DetailedCollectionTitle(
   return (
     <div className={`${styles.shadowWrapper} ${styles.titleWrapper}`}>
       <DetailedTitle
-        item={collection}
+        item={question}
         detailedSidebarButtonRef={detailedSidebarButtonRef}
         setIsSidebarOpen={setIsSidebarOpen}
       />
@@ -53,9 +49,8 @@ export default function DetailedCollectionTitle(
           <img src={closeBtn} alt="Кнопка закрытия сайдбара"/>
         </button>
 
-        <DetailedCollectionSidebar
-          collection={collection}
-          specs={specs}
+        <DetailedQuestionPageSidebar
+          question={question}
           className={stylesCollectionsPage.fixedSidebar}
         />
       </Drawer>

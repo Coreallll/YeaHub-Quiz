@@ -5,7 +5,7 @@ import DetailedSidebarSkeleton from "../DetailedSidebar/DetailedSidebarSkeleton.
 import stylesSidebar from "../../CollectionsPage/CollectionsSidebar/Sidebar.module.css";
 import PaginationSkeleton from "../../../components/ui/Pagination/PaginationSkeleton.tsx";
 
-export default function DetailedCollectionSkeleton() {
+export default function DetailedCollectionPageSkeleton() {
   return (
     <div className="mainWrapper">
       <div className={styles.contentWrapper}>

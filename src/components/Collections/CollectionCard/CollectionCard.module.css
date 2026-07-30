@@ -66,3 +66,30 @@
 .cardSpec {
     color: var(--black500);
 }
+@media(max-width: 1024px) {
+    .cardWrapper {
+        padding: 10px;
+        flex-direction: column;
+        border-radius: 24px;
+    }
+    .cardImg {
+        align-self: center;
+        width: 300px;
+        height: 300px;
+    }
+}
+@media(max-width: 768px) {
+    .questionTitleText {
+        font-size: 16px;
+    }
+    .answer {
+        font-size: 14px;
+    }
+    .rating {
+        padding-top: 16px;
+        margin-bottom: 16px;
+    }
+    .ratingWrap {
+        font-size: 12px;
+    }
+}

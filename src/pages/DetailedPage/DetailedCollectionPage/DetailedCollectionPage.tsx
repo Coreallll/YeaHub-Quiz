@@ -2,11 +2,11 @@ import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 import styles from "./DetailedCollectionPage.module.css"
 import Questions from "../../../components/Questions/Questions.tsx";
 import {useSidebarFiltersData} from "../../../hooks/useSidebarFiltersData.ts";
-import DetailedCollectionTitle from "./DetailedCollectionsTitle.tsx";
+import DetailedCollectionTitle from "./DetailedCollectionTitle.tsx";
 import {useQuestions} from "../../../hooks/useQuestions.ts";
-import DetailedCollectionSidebar from "../DetailedSidebar/DetailedCollectionSidebar.tsx";
+import DetailedCollectionPageSidebar from "./DetailedCollectionPageSidebar.tsx";
 import useDetailedCollectionPage from "../../../hooks/useDetailedCollectionPage.ts";
-import DetailedCollectionSkeleton from "./DetailedCollectionSkeleton.tsx";
+import DetailedCollectionPageSkeleton from "./DetailedCollectionPageSkeleton.tsx";
 
 export default function DetailedCollectionPage() {
 
@@ -28,10 +28,9 @@ export default function DetailedCollectionPage() {
 
   if (isCollectionLoading) {
     return (
-      <DetailedCollectionSkeleton />
+      <DetailedCollectionPageSkeleton />
     )
   }
-
 
   if (!collection) {
     return (
@@ -43,14 +42,12 @@ export default function DetailedCollectionPage() {
     )
   }
 
-
   return (
     <div className="mainWrapper">
       <div className={styles.contentWrapper}>
         <DetailedCollectionTitle
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
-          isQuestionsLoading={isQuestionsLoading}
           specs={specs}
           collection={collection}
         />
@@ -62,7 +59,7 @@ export default function DetailedCollectionPage() {
           isQuestionsLoading={isQuestionsLoading}
         />
       </div>
-      <DetailedCollectionSidebar
+      <DetailedCollectionPageSidebar
         specs={specs}
         collection={collection}
       />
