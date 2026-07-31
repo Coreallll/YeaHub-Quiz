@@ -1,5 +1,5 @@
 import RenderAnswer from "../../../components/Questions/QuestionCard/RenderAnswer.tsx";
-import stylesCard from "../../../components/questions/QuestionCard/QuestionCard.module.css";
+import stylesCard from "../../../components/Questions/QuestionCard/QuestionCard.module.css";
 import styles from "../../DetailedPage/DetailedCollectionPage/DetailedCollectionPage.module.css";
 import type {QuestionProps} from "./DetailedQuestionPageSidebar/QuestionComplexity.tsx";
 

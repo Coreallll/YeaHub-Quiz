@@ -31,7 +31,7 @@ export const useQuestions = () => {
         setQuestionsData(response.data);
         setTotalQuestionsPages(Math.ceil(response.total / response.limit));
       } catch(error) {
-        setErrorMessage(`Не удалось загрузить вопросы`);
+        setErrorMessage(`Не удалось загрузить вопросы ${error}`);
       } finally {
         setIsQuestionsLoading(false);
       }

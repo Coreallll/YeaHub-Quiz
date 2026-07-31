@@ -33,7 +33,7 @@ export default function CollectionTitle(
 
   const sidebarClose = useCallback(() => {
     setIsSidebarOpen(false);
-  }, []);
+  }, [setIsSidebarOpen]);
 
   useOutsideClick(collectionsDrawerRef, sidebarClose, sidebarButtonRef);
 

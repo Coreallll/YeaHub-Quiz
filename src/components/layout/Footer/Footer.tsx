@@ -11,15 +11,15 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className="container">
         <img className={styles.footerLogo} src={logo} alt="Логотип YeaHub"/>
-        <span className={styles.slogan}>Выбери, каким будет IT завтра, вместе с нами</span>
-        <p className={styles.descr}>YeaHub — это полностью открытый проект, призванный объединить и улучшить IT-сферу. Наш исходный код доступен для просмотра на GitHub. Дизайн проекта также открыт для ознакомления в Figma.</p>
+        <span className={styles.slogan}>Выбери, каким будет IT завтра, вместе с нами</span>
+        <p className={styles.descr}>YeaHub — это полностью открытый проект, призванный объединить и улучшить IT-сферу. Наш исходный код доступен для просмотра на GitHub. Дизайн проекта также открыт для ознакомления в Figma.</p>
         <div className={styles.bottomContent}>
           <div className={styles.copyright}>
-            <a href="">© 2024 YeaHub</a>
+            <a href="">© 2024 YeaHub</a>
             <a href="">Документы</a>
           </div>
           <div className={styles.socials}>
-            <span className={styles.socialsDescr}>Ищите нас и в других соцсетях @yeahub_it</span>
+            <span className={styles.socialsDescr}>Ищите нас и в других соцсетях @yeahub_it</span>
             <ul className={styles.socialList}>
               <li className={styles.socialItem}>
                 <a href="" className={styles.socialLink}><img src={figma} alt="Figma"/></a>

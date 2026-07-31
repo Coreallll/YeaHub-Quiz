@@ -20,7 +20,7 @@ function extractText(node: ChildNode): string {
 
 function normalizeLanguage(className = "", code = "") {
   const match = className.match(/language-([^\s]+)/);
-  let language = match?.[1] ?? "";
+  const language = match?.[1] ?? "";
 
   if (language === "typescriptreact") return "tsx";
   if (language === "javascriptreact") return "jsx";

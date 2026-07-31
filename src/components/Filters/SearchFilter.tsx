@@ -27,7 +27,11 @@ export default function SearchFilter(
     setSearchValue(value);
 
     const params = Object.fromEntries(searchParams);
-    value.trim().length > 0 ? params.search = value : delete params.search;
+    if(value.trim().length > 0) {
+      params.search = value
+    } else {
+      delete params.search
+    }
 
     setSearchParams(params);
   }

@@ -27,7 +27,7 @@ export default function QuestionsTitle(
     document.title = specTitle
       ? `Вопросы ${specTitle}`
       : 'Вопросы не найдены';
-  }, [specTitle]);
+  }, [specTitle, isQuestionsLoading]);
 
   return (
     <div className={styles.contentTitle}>

@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {useFiltersContext} from "./useFiltersContext.ts";
 
 
@@ -9,7 +9,7 @@ export function usePagination(totalPages: number) {
     ? pageFromParams
     : 1;
 
-  function setPage(page: number) {
+  const changePage = useCallback((page: number) => {
     const lastPage = Math.max(totalPages, 1);
     const nextPage = Math.min(Math.max(page, 1), lastPage);
 
@@ -19,26 +19,26 @@ export function usePagination(totalPages: number) {
       params.set("page", String(nextPage));
       return params;
     });
-  }
+  }, [totalPages, setSearchParams]);
 
 
   function handleNextPage() {
-    setPage(currentPage + 1);
+    changePage(currentPage + 1);
   }
 
   function handlePrevPage() {
-    setPage(currentPage - 1);
+    changePage(currentPage - 1);
   }
 
   function handlePageClick(pageNumber: number) {
-    setPage(pageNumber);
+    changePage(pageNumber);
   }
 
   useEffect(() => {
     if (currentPage > totalPages && totalPages > 0) {
-      setPage(totalPages);
+      changePage(totalPages);
     }
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, changePage]);
 
   return {
     currentPage,

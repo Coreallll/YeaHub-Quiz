@@ -1,5 +1,5 @@
-import '../../yeahub-public-collection/src/styles/normalize.css';
-import '../../yeahub-public-collection/src/styles/global.css';
+import '../src/styles/normalize.css';
+import '../src/styles/global.css';
 import {RouterProvider} from "react-router-dom";
 import {router} from "./router.tsx";
 

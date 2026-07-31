@@ -1,5 +1,5 @@
 import stylesSidebar from "../../../CollectionsPage/CollectionsSidebar/Sidebar.module.css";
-import stylesCard from "../../../../components/questions/QuestionCard/QuestionCard.module.css";
+import stylesCard from "../../../../components/Questions/QuestionCard/QuestionCard.module.css";
 import styles from "./DetailedQuestionPageSidebar.module.css"
 import type {QuestionItem} from "../../../../api/getQuestionsData.ts";
 
