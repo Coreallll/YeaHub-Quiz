@@ -1,7 +1,7 @@
 import styles from "../../DetailedPage/DetailedCollectionPage/DetailedCollectionPage.module.css";
 import arrowLeft from "../../../assets/icons/arrowLeft.svg";
 import arrowRight from "../../../assets/icons/arrowRight.svg";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 interface DetailedQuestionPageNavigateProps {
   isPrevDisabled: boolean;
@@ -19,6 +19,7 @@ export default function DetailedQuestionPageNavigate(
     }: DetailedQuestionPageNavigateProps) {
 
   const navigate = useNavigate();
+  const { collectionId } = useParams();
 
   return (
     <div className={styles.shadowWrapper}>
@@ -26,7 +27,7 @@ export default function DetailedQuestionPageNavigate(
         <button
           disabled={isPrevDisabled}
           className={`${styles.pageNavBtn} ${isPrevDisabled && styles.disabled}`}
-          onClick={() => navigate(`/questions/${prevQuestionId}`)}
+          onClick={() => navigate(`/collections/${collectionId}/questions/${prevQuestionId}`)}
         >
           <img src={arrowLeft} alt="Стрелка влево"/>
           Предыдущий
@@ -34,7 +35,7 @@ export default function DetailedQuestionPageNavigate(
         <button
           disabled={isNextDisabled}
           className={`${styles.pageNavBtn} ${isNextDisabled && styles.disabled}`}
-          onClick={() => navigate(`/questions/${nextQuestionId}`)}
+          onClick={() => navigate(`/collections/${collectionId}/questions/${nextQuestionId}`)}
         >
           Следующий
           <img src={arrowRight} alt="Стрелка вправо"/>

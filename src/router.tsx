@@ -14,11 +14,11 @@ export const router = createBrowserRouter([
         element: <CollectionsPage />
       },
       {
-        path: "/collections/:id",
+        path: "/collections/:collectionId",
         element: <DetailedCollectionPage />,
       },
       {
-        path: "/questions/:id",
+        path: "/collections/:collectionId/questions/:questionId",
         element: <DetailedQuestionPage />,
       }
     ]

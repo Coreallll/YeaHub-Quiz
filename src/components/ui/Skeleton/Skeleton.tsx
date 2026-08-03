@@ -22,6 +22,7 @@ export default function Skeleton({ count, className="", width, height, borderRad
         <div
           className={styles.skeleton}
           style={{
+            width: width ? `${width}px` : "100%",
             height: height ? `${height}px` : "24px",
             borderRadius: borderRadius ? `${borderRadius}px` : "4px",
           }}

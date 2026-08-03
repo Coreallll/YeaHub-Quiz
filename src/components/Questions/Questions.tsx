@@ -1,13 +1,15 @@
 import QuestionsTitle from "./QuestionsTitle.tsx";
-import type {Filter} from "../../api/getFilters.ts";
 import QuestionsList from "./QuestionsList/QuestionsList.tsx";
 import styles from "./Questions.module.css";
 import Pagination from "../ui/Pagination/Pagination.tsx";
 import {usePagination} from "../../hooks/usePagination.ts";
 import type {QuestionItem} from "../../api/getQuestionsData.ts";
+import type {CollectionSpec} from "../../api/getCollectionSpecsFilters.ts";
+import type {CollectionItem} from "../../api/getColletionsData.ts";
 
 export interface QuestionsProps {
-  specs: Filter[];
+  collection: CollectionItem;
+  collectionSpecs: CollectionSpec[];
   questionsData: QuestionItem[];
   errorMessage: string;
   totalQuestionsPages: number;
@@ -16,7 +18,8 @@ export interface QuestionsProps {
 
 export default function Questions(
   {
-    specs,
+    collection,
+    collectionSpecs,
     questionsData,
     errorMessage,
     totalQuestionsPages,
@@ -34,11 +37,12 @@ export default function Questions(
   return (
     <div className="mainContent">
       <QuestionsTitle
-        specs={specs}
+        collectionSpecs={collectionSpecs}
         isQuestionsLoading={isQuestionsLoading}
       />
       <hr className={styles.divider}/>
       <QuestionsList
+        collection={collection}
         questionsData={questionsData}
         isQuestionsLoading={isQuestionsLoading}
         errorMessage={errorMessage}

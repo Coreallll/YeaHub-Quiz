@@ -6,7 +6,7 @@ import {type Dispatch, type SetStateAction, useCallback, useRef} from "react";
 import useOutsideClick from "../../hooks/useOutsideClick.ts";
 import Skeleton from "../../components/ui/Skeleton/Skeleton.tsx";
 import CollectionsSidebar from "./CollectionsSidebar/CollectionsSidebar.tsx";
-import type {Filter} from "../../api/getFilters.ts";
+import type {Filter} from "../../api/getAllFilters.ts";
 
 interface TitleProps {
   specs: Filter[];

@@ -1,22 +1,22 @@
 import stylesSidebar from "../../CollectionsPage/CollectionsSidebar/Sidebar.module.css";
-import FilterSpecializations from "../../../components/Filters/FilterSpecializations.tsx";
-import type {Filter} from "../../../api/getFilters.ts";
 import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 import FilterSection from "../../../components/Filters/FilterSection.tsx";
 import DetailedSidebarAuthor from "../DetailedSidebar/DetailedSidebarAuthor.tsx";
 import type {CollectionItem} from "../../../api/getColletionsData.ts";
 import DetailedSidebarTags from "../DetailedSidebar/DetailedSidebarTags.tsx";
+import type {CollectionSpec} from "../../../api/getCollectionSpecsFilters.ts";
+import {replaceQueryParams} from "../../../utils/replaceQueryParams.ts";
 
 interface DetailedCollectionSidebarProps {
   collection: CollectionItem;
   className?: string;
-  specs: Filter[];
+  collectionSpecs: CollectionSpec[];
 }
 
 export default function DetailedCollectionPageSidebar(
   {
     collection,
-    specs,
+    collectionSpecs,
     className =""
   }: DetailedCollectionSidebarProps) {
 
@@ -31,13 +31,25 @@ export default function DetailedCollectionPageSidebar(
 
   return (
     <aside className={`${stylesSidebar.sidebar} ${className}`}>
-      <FilterSpecializations
-        specs={specs}
-        specFilter={specFilter}
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-        clearFilters={clearFilters}
-      />
+      {collectionSpecs.length > 0 &&
+        <FilterSection
+          title="Специализация"
+          items={collectionSpecs}
+          activeValue={specFilter}
+          setFilter={(spec) => {
+            clearFilters(String(spec.id));
+            const params = replaceQueryParams(
+              searchParams,
+              "specializations",
+              spec.id
+            );
+            setSearchParams(params);
+          }}
+          getLabel={(spec) => spec.title}
+          getValue={(spec) => spec.id}
+          showAllBtn
+        />
+      }
       <FilterSection
         title="Доступ"
         inactive

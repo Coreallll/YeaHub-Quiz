@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {getFiltersItems} from "../api/getFilters.ts";
-import type {Filter} from "../api/getFilters.ts";
+import {getFiltersItems} from "../api/getAllFilters.ts";
+import type {Filter} from "../api/getAllFilters.ts";
 
 export function useSidebarFiltersData() {
   const [specs, setSpecs] = useState<Filter[]>([]);

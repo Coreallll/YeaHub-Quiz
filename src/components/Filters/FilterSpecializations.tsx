@@ -1,5 +1,5 @@
 import FilterSection from "./FilterSection.tsx";
-import type {Filter} from "../../api/getFilters.ts";
+import type {Filter} from "../../api/getAllFilters.ts";
 import {replaceQueryParams} from "../../utils/replaceQueryParams.ts";
 import type {SetURLSearchParams} from "react-router-dom";
 

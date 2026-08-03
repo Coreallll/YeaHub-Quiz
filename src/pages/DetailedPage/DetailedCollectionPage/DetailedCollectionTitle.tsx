@@ -6,13 +6,13 @@ import stylesCollectionsPage from "../../CollectionsPage/CollectionsPage.module.
 import styles from "./DetailedCollectionPage.module.css";
 import DetailedTitle from "../../../components/Detailed/DetailedTitle.tsx";
 import DetailedCollectionPageSidebar from "./DetailedCollectionPageSidebar.tsx";
-import type {Filter} from "../../../api/getFilters.ts";
 import type {CollectionItem} from "../../../api/getColletionsData.ts";
+import type {CollectionSpec} from "../../../api/getCollectionSpecsFilters.ts";
 
 interface DetailedCollectionTitleProps {
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
-  specs: Filter[];
+  collectionSpecs: CollectionSpec[];
   collection: CollectionItem;
 }
 
@@ -20,7 +20,7 @@ export default function DetailedCollectionTitle(
   {
     isSidebarOpen,
     setIsSidebarOpen,
-    specs,
+    collectionSpecs,
     collection
   }: DetailedCollectionTitleProps) {
 
@@ -54,7 +54,7 @@ export default function DetailedCollectionTitle(
 
         <DetailedCollectionPageSidebar
           collection={collection}
-          specs={specs}
+          collectionSpecs={collectionSpecs}
           className={stylesCollectionsPage.fixedSidebar}
         />
       </Drawer>

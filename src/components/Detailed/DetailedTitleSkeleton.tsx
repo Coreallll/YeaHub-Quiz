@@ -8,8 +8,8 @@ export default function DetailedTitleSkeleton() {
       <Skeleton width={157} height={157} borderRadius={12}/>
       <div className={stylesDetailedTitle.titleMobileWrapper}>
         <div className={stylesDetailedTitle.titleText}>
-          <Skeleton width={300} height={48}/>
-          <Skeleton width={300} height={80}/>
+          <Skeleton height={48}/>
+          <Skeleton height={80}/>
         </div>
       </div>
     </div>

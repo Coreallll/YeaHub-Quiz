@@ -5,7 +5,6 @@ import star from "../../../assets/icons/star.svg"
 import question from "../../../assets/icons/question.svg"
 import {Link} from "react-router-dom";
 import {getQuestionsWord} from "../../../utils/getQuestionWord.ts";
-import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 
 interface CollectionCardProps {
   collection: CollectionItem;
@@ -13,10 +12,8 @@ interface CollectionCardProps {
 
 export default function CollectionCard({ collection }: CollectionCardProps) {
 
-  const {searchParams} = useFiltersContext();
-
   return (
-    <Link className={styles.cardWrapper} to={`/collections/${collection.id}?${searchParams.toString()}`}>
+    <Link className={styles.cardWrapper} to={`/collections/${collection.id}`}>
       <img
         className={styles.cardImg}
         src={collection.company?.imageSrc ?? collectionCardPlaceholder}

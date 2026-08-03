@@ -1,12 +1,12 @@
 import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
 import styles from "./DetailedCollectionPage.module.css"
 import Questions from "../../../components/Questions/Questions.tsx";
-import {useSidebarFiltersData} from "../../../hooks/useSidebarFiltersData.ts";
 import DetailedCollectionTitle from "./DetailedCollectionTitle.tsx";
 import {useQuestions} from "../../../hooks/useQuestions.ts";
 import DetailedCollectionPageSidebar from "./DetailedCollectionPageSidebar.tsx";
 import useDetailedCollectionPage from "../../../hooks/useDetailedCollectionPage.ts";
 import DetailedCollectionPageSkeleton from "./DetailedCollectionPageSkeleton.tsx";
+import {useSidebarCollectionSpecsFiltersData} from "../../../hooks/useSidebarCollectionSpecsFiltersData.ts";
 
 export default function DetailedCollectionPage() {
 
@@ -17,7 +17,7 @@ export default function DetailedCollectionPage() {
 
   const { collection, isCollectionLoading } = useDetailedCollectionPage();
 
-  const {specs} = useSidebarFiltersData();
+  const {collectionSpecs} = useSidebarCollectionSpecsFiltersData();
 
   const {
     questionsData,
@@ -48,11 +48,12 @@ export default function DetailedCollectionPage() {
         <DetailedCollectionTitle
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
-          specs={specs}
+          collectionSpecs={collectionSpecs}
           collection={collection}
         />
         <Questions
-          specs={specs}
+          collection={collection}
+          collectionSpecs={collectionSpecs}
           questionsData={questionsData}
           errorMessage={errorMessage}
           totalQuestionsPages={totalQuestionsPages}
@@ -60,7 +61,7 @@ export default function DetailedCollectionPage() {
         />
       </div>
       <DetailedCollectionPageSidebar
-        specs={specs}
+        collectionSpecs={collectionSpecs}
         collection={collection}
       />
     </div>

@@ -7,13 +7,13 @@ export default function useDetailedCollectionPage() {
   const [collection, setCollection] = useState<CollectionItem | null>(null);
   const [isCollectionLoading, setIsCollectionLoading] = useState(false);
 
-  const { id } = useParams();
+  const { collectionId } = useParams();
 
   useEffect(() => {
     async function getCollection() {
       try {
         setIsCollectionLoading(true);
-        const data = await getCollectionById(Number(id));
+        const data = await getCollectionById(Number(collectionId));
 
         setCollection(data);
       } catch (error) {
@@ -24,7 +24,7 @@ export default function useDetailedCollectionPage() {
     }
 
     getCollection();
-  }, [id]);
+  }, [collectionId]);
 
   return {collection, isCollectionLoading};
 }

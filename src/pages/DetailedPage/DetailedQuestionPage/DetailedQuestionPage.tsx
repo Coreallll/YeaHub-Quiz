@@ -9,6 +9,7 @@ import {useDetailedQuestionPage} from "../../../hooks/useDetailedQuestionPage.ts
 import DetailedQuestionPageSidebar from "./DetailedQuestionPageSidebar/DetailedQuestionPageSidebar.tsx";
 import DetailedQuestionTitle from "./DetailedQuestionTitle.tsx";
 import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
+import {useQuestions} from "../../../hooks/useQuestions.ts";
 
 export default function DetailedQuestionPage() {
 
@@ -19,6 +20,8 @@ export default function DetailedQuestionPage() {
     setIsSidebarOpen,
   } = useFiltersContext();
 
+  const { questionsData } = useQuestions();
+
   const {
     question,
     detailedLoading,
@@ -26,7 +29,7 @@ export default function DetailedQuestionPage() {
     isNextDisabled,
     prevQuestionId,
     nextQuestionId,
-  } = useDetailedQuestionPage();
+  } = useDetailedQuestionPage(questionsData);
 
   if (detailedLoading) {
     return (

@@ -3,7 +3,7 @@ import styles from "./QuestionCard.module.css";
 import arrowIcon from "../../../assets/icons/arrow.svg";
 import arrowRightDetailed from "../../../assets/icons/arrowRightDetailed.svg";
 import RenderAnswer from "./RenderAnswer.js";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import type {QuestionItem} from "../../../api/getQuestionsData.ts";
 
 interface QuestionCardProps {
@@ -17,7 +17,10 @@ export default function QuestionCard({ question }: QuestionCardProps) {
 
   const navigate = useNavigate();
 
+  const { collectionId } = useParams();
+
   useEffect(() => {
+    console.log(collectionId)
     if (!contentRef.current) return;
     setHeight(open ? contentRef.current.scrollHeight : 0);
   }, [open]);
@@ -54,7 +57,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
         </div>
         <button
           className={styles.detailedBtn}
-          onClick={() => navigate(`/questions/${question.id}`)}
+          onClick={() => navigate(`/collections/${collectionId}/questions/${question.id}`)}
         >
           Подробнее
           <img className={styles.detailedBtnIcon} src={arrowRightDetailed} alt="Стрелка"/>

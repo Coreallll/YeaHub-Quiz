@@ -8,6 +8,7 @@ interface GetQuestionsItemsParams {
   cardsOnPage: number;
   specFilter?: string | null;
   debounceKeywords?: string;
+  collectionId?: string;
 }
 
 interface Skills {
@@ -43,6 +44,7 @@ export async function getQuestionsItems(
     currentPage,
     cardsOnPage,
     specFilter,
+    collectionId,
   }: GetQuestionsItemsParams): Promise<QuestionsResponse> {
 
   const params = new URLSearchParams();
@@ -52,6 +54,10 @@ export async function getQuestionsItems(
 
   if (specFilter) {
     params.set('specializationId', specFilter);
+  }
+
+  if (collectionId) {
+    params.set('collection', String(collectionId));
   }
 
   const url = `${BASE_URL}/questions/public-questions?${params.toString()}`

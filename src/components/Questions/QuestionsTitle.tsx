@@ -2,23 +2,23 @@ import {useEffect} from "react";
 import Skeleton from "../ui/Skeleton/Skeleton.tsx";
 import styles from "./Questions.module.css";
 import {useFiltersContext} from "../../hooks/useFiltersContext.ts";
-import type {Filter} from "../../api/getFilters.ts";
+import type {CollectionSpec} from "../../api/getCollectionSpecsFilters.ts";
 
 interface QuestionsTitleProps {
-  specs: Filter[];
+  collectionSpecs: CollectionSpec[];
   isQuestionsLoading: boolean;
 }
 
 export default function QuestionsTitle(
   {
-    specs,
+    collectionSpecs,
     isQuestionsLoading,
   }: QuestionsTitleProps
 ) {
 
   const { specFilter } = useFiltersContext();
 
-  const currentSpec = specs.find(spec => spec.id === Number(specFilter));
+  const currentSpec = collectionSpecs.find(spec => spec.id === Number(specFilter));
   const specTitle = currentSpec?.title;
 
   useEffect(() => {

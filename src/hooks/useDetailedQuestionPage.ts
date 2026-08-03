@@ -1,35 +1,50 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getQuestionById} from "../api/getQuestionIdData.ts";
-import {useQuestions} from "./useQuestions.js";
+// import {useQuestions} from "./useQuestions.js";
 import type {QuestionItem} from "../api/getQuestionsData.ts";
 
-export const useDetailedQuestionPage = () => {
+export const useDetailedQuestionPage = (questionsData: QuestionItem[]) => {
   const [question, setQuestion] = useState<QuestionItem | null>(null);
   const [detailedLoading, setDetailedLoading] = useState(true);
 
-  const { id } = useParams();
+  const { questionId } = useParams();
 
-  const { questionsData } = useQuestions();
+  // const { questionsData } = useQuestions();
 
-  const questionIds = questionsData.map(question => question.id);
+  const currentQuestionId = Number(questionId);
+
+  const questionIds = questionsData.map(
+    (question) => question.id
+  );
 
   const currentIndex = questionIds.findIndex(
-    questionId => questionId === Number(id)
+    (id) => id === currentQuestionId
   );
 
   const isPrevDisabled = currentIndex <= 0;
-  const isNextDisabled = currentIndex >= questionsData.length - 1;
 
-  const prevQuestionId = questionIds[currentIndex - 1];
-  const nextQuestionId = questionIds[currentIndex + 1];
+  const isNextDisabled =
+    currentIndex === -1 ||
+    currentIndex >= questionIds.length - 1;
+
+  const prevQuestionId =
+    currentIndex > 0
+      ? questionIds[currentIndex - 1]
+      : null;
+
+  const nextQuestionId =
+    currentIndex >= 0 &&
+    currentIndex < questionIds.length - 1
+      ? questionIds[currentIndex + 1]
+      : null;
 
   useEffect(() => {
     async function getQuestion() {
       try {
         setDetailedLoading(true);
 
-        const data = await getQuestionById(Number(id));
+        const data = await getQuestionById(Number(questionId));
 
         setQuestion(data);
       } catch (error) {
@@ -41,7 +56,7 @@ export const useDetailedQuestionPage = () => {
     }
 
     getQuestion();
-  }, [id]);
+  }, [questionId]);
 
   return {
     question,

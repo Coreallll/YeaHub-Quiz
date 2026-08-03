@@ -3,7 +3,7 @@ import SearchFilter from "../../../components/Filters/SearchFilter.tsx";
 import FilterSpecializations from "../../../components/Filters/FilterSpecializations.tsx";
 import CollectionsSidebarSkeleton from "./CollectionsSidebarSkeleton.tsx";
 import {useFiltersContext} from "../../../hooks/useFiltersContext.ts";
-import type {Filter} from "../../../api/getFilters.ts";
+import type {Filter} from "../../../api/getAllFilters.ts";
 import FilterAccess from "../../../components/Filters/FiltersAccess.tsx";
 
 interface CollectionsSidebarProps {

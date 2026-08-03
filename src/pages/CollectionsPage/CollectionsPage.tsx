@@ -52,7 +52,6 @@ export default function CollectionsPage() {
           isCollectionsLoading={isCollectionsLoading}
           clearFilters={clearFilters}
         />
-
         <Pagination
           isCollectionsLoading={isCollectionsLoading}
           currentPage={currentPage}
@@ -61,7 +60,6 @@ export default function CollectionsPage() {
           handlePrevPage={handlePrevPage}
           handlePageClick={handlePageClick}
         />
-
       </div>
       <CollectionsSidebar
         specs={specs}

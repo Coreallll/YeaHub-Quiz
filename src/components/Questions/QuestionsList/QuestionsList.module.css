@@ -16,7 +16,7 @@
     .emptyTitle {
         font-size: 20px;
     }
-    .clearFilter {
+    .emptyBtn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -36,6 +36,9 @@
             opacity: 0.8;
         }
     }
+}
+.returnBtn {
+
 }
 @media(max-width: 1024px) {
     .questionList {

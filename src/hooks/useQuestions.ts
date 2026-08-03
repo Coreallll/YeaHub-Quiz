@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {getQuestionsItems, type QuestionItem} from "../api/getQuestionsData.ts";
 import {useFiltersContext} from "./useFiltersContext.ts";
 import {usePagination} from "./usePagination.ts";
+import {useParams} from "react-router-dom";
 
 export const useQuestions = () => {
 
@@ -17,6 +18,8 @@ export const useQuestions = () => {
   const [totalQuestionsPages, setTotalQuestionsPages] = useState(1);
   const { currentPage } = usePagination(totalQuestionsPages);
 
+  const { collectionId } = useParams();
+
   useEffect(() => {
     async function getQuestions() {
       try {
@@ -27,6 +30,7 @@ export const useQuestions = () => {
           currentPage,
           cardsOnPage,
           specFilter,
+          collectionId
         });
         setQuestionsData(response.data);
         setTotalQuestionsPages(Math.ceil(response.total / response.limit));
@@ -41,6 +45,7 @@ export const useQuestions = () => {
     currentPage,
     cardsOnPage,
     specFilter,
+    collectionId
   ]);
 
   return {
