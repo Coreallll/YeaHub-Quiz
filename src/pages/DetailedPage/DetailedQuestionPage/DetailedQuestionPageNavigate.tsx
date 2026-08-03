@@ -6,8 +6,8 @@ import {useNavigate, useParams} from "react-router-dom";
 interface DetailedQuestionPageNavigateProps {
   isPrevDisabled: boolean;
   isNextDisabled: boolean;
-  prevQuestionId: number;
-  nextQuestionId: number;
+  prevQuestionId: number | null;
+  nextQuestionId: number | null;
 }
 
 export default function DetailedQuestionPageNavigate(
