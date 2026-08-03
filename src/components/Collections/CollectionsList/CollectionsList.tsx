@@ -27,7 +27,9 @@ export default memo(function CollectionsList(
           <CollectionsListSkeleton />
         ) : (
           (collectionsData.length > 0 ? (
-            collectionsData.map((collection) => (
+            collectionsData
+              .filter((collection) => collection.questionsCount > 0)
+              .map((collection) => (
               <CollectionCard key={collection.id} collection={collection}/>
             ))
           ) : (
