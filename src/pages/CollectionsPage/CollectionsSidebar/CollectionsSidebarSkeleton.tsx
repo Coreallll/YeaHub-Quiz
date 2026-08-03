@@ -4,7 +4,7 @@ import FilterSectionSkeleton from "../../../components/Filters/FilterSectionSkel
 export default function CollectionsSidebarSkeleton() {
   return (
     <>
-      <Skeleton height={48} borderRadius={8} />
+      <Skeleton height={48} borderRadius={68} />
       <FilterSectionSkeleton
         widthSkeletonFilter={200}
         borderRadiusFilter={12}

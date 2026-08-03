@@ -2,7 +2,6 @@ import searchIcon from '../../assets/icons/searchIcon.svg'
 import styles from '../../pages/CollectionsPage/CollectionsSidebar/Sidebar.module.css';
 import type {ChangeEvent, Dispatch, SetStateAction} from "react";
 import type {SetURLSearchParams} from "react-router-dom";
-import {useCollections} from "../../hooks/useCollections.ts";
 
 interface SearchFilterProps {
   searchValue: string;
@@ -19,10 +18,7 @@ export default function SearchFilter(
       setSearchParams
     }: SearchFilterProps) {
 
-  const {setIsCollectionsLoading} = useCollections();
-
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
-    setIsCollectionsLoading(true);
     const value = event.target.value;
     setSearchValue(value);
 
