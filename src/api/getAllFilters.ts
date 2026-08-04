@@ -15,6 +15,6 @@ interface ApiResponse<T> {
 
 export async function getFiltersItems(endpoint:string): Promise<Filter[]> {
 
-  const response = await axios.get<ApiResponse<Filter[]>>(`${BASE_URL}/${endpoint}`);
+  const response = await axios.get<ApiResponse<Filter[]>>(`${BASE_URL}/${endpoint}`,{params: {limit: 30}});
   return response.data.data;
 }
