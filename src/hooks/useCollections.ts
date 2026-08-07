@@ -1,68 +1,56 @@
-import {useEffect, useState} from "react";
-import {useDebounce} from "./useDebounce.js";
+import {useState} from "react";
 import {useFiltersContext} from "./useFiltersContext.ts";
-import {type CollectionItem, getCollectionsItems} from "../api/getColletionsData.ts";
+import {getCollectionsItems} from "../api/getColletionsData.ts";
 import {usePagination} from "./usePagination.ts";
+import {useAsync} from "./useAsync.ts";
 
 export const useCollections = () => {
 
   const { cardsOnPage } = useFiltersContext();
 
-  const [collectionsData, setCollectionsData] = useState<CollectionItem[]>([]);
-  const [isCollectionsLoading, setIsCollectionsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const {
+    specFilter,
+    accessFilter,
+    appliedSearch
+  } = useFiltersContext();
 
   const [totalCollectionsPages, setTotalCollectionsPages] = useState(1);
   const { currentPage } = usePagination(totalCollectionsPages);
 
   const {
-    searchValue,
-    specFilter,
-    accessFilter
-  } = useFiltersContext();
+    data: response,
+    isLoading: isCollectionsLoading,
+    error,
+  } = useAsync(
+    (signal) => getCollectionsItems({
+      currentPage,
+      cardsOnPage,
+      specFilter,
+      accessFilter,
+      appliedSearch,
+      signal
+    }), [
+      currentPage,
+      cardsOnPage,
+      specFilter,
+      accessFilter,
+      appliedSearch
+    ]
+  )
 
-  const debounceKeywords = useDebounce(searchValue, 800);
+  const [syncedCollectionsResponse, setSyncedCollectionsResponse] = useState(response);
 
-  useEffect(() => {
-    async function getCollections() {
-      try {
-        setIsCollectionsLoading(true);
-        setErrorMessage("");
-
-        const response = await getCollectionsItems({
-          currentPage,
-          cardsOnPage,
-          specFilter,
-          debounceKeywords,
-          accessFilter,
-        });
-        setCollectionsData(response.data);
-        setTotalCollectionsPages(Math.ceil(response.total / response.limit));
-      } catch(error) {
-        console.log(error)
-        setErrorMessage(`Не удалось загрузить коллекции`);
-      } finally {
-        setIsCollectionsLoading(false);
-      }
-    }
-    getCollections();
-  }, [
-    currentPage,
-    cardsOnPage,
-    specFilter,
-    debounceKeywords,
-    setTotalCollectionsPages,
-    accessFilter,
-  ]);
+  if(response !== syncedCollectionsResponse) {
+    setSyncedCollectionsResponse(response);
+    if (response) setTotalCollectionsPages(Math.ceil(response.total / response.limit));
+  }
 
   return {
-    collectionsData,
+    collectionsData: response?.data ?? [],
     isCollectionsLoading,
-    setIsCollectionsLoading,
-    errorMessage,
+    errorMessage: error,
     currentPage,
     totalCollectionsPages,
     cardsOnPage,
-    debounceKeywords,
   }
 }

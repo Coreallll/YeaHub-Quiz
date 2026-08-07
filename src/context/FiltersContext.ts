@@ -9,9 +9,8 @@ interface FiltersContextValue {
 
   specFilter: string | null;
 
-  searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
-  debounceKeywords: string;
+  searchDraft: string;
+  setSearchDraft: Dispatch<SetStateAction<string>>;
 
   clearFilters: (nextSpec?: string) => void;
 
@@ -19,6 +18,7 @@ interface FiltersContextValue {
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 
   accessFilter: string;
+  appliedSearch?: string;
 }
 
 export const FiltersContext = createContext<FiltersContextValue | null>(null);

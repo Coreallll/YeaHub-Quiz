@@ -8,20 +8,20 @@ import type {QuestionItem} from "../../../../api/getQuestionsData.ts";
 
 interface DetailedQuestionPageSidebarProps {
   question: QuestionItem | null;
-  detailedLoading?: boolean;
+  isQuestionLoading?: boolean;
   className?: string;
 }
 
 export default function DetailedQuestionPageSidebar(
   {
     question,
-    detailedLoading,
+    isQuestionLoading,
     className =""
   }:DetailedQuestionPageSidebarProps) {
 
   return (
     <aside className={`${stylesSidebar.sidebar} ${className}`}>
-      {detailedLoading ? (
+      {isQuestionLoading ? (
         <DetailedSidebarSkeleton />
       ) : (
         question && (

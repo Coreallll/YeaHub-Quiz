@@ -7,8 +7,8 @@ interface GetQuestionsItemsParams {
   currentPage: number;
   cardsOnPage: number;
   specFilter?: string | null;
-  debounceKeywords?: string;
   collectionId?: string;
+  signal?: AbortSignal;
 }
 
 interface Skills {
@@ -45,6 +45,7 @@ export async function getQuestionsItems(
     cardsOnPage,
     specFilter,
     collectionId,
+    signal
   }: GetQuestionsItemsParams): Promise<QuestionsResponse> {
 
   const params = new URLSearchParams();
@@ -62,6 +63,6 @@ export async function getQuestionsItems(
 
   const url = `${BASE_URL}/questions/public-questions?${params.toString()}`
 
-  const response = await axios.get(url);
+  const response = await axios.get(url, {signal});
   return response.data;
 }

@@ -1,4 +1,4 @@
-import styles from '../../pages/CollectionsPage/CollectionsSidebar/Sidebar.module.css'
+import styles from './Filters.module.css'
 import FilterButton from "../ui/FilterButton/FilterButton.js";
 import {useState} from "react";
 import FilterIsFree from "./FilterIsFree.tsx";

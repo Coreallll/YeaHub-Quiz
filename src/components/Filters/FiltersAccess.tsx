@@ -1,4 +1,4 @@
-import styles from "../../pages/CollectionsPage/CollectionsSidebar/Sidebar.module.css";
+import styles from "./Filters.module.css";
 import FilterSection from "./FilterSection.tsx";
 import type {SetURLSearchParams} from "react-router-dom";
 import {replaceQueryParams} from "../../utils/replaceQueryParams.ts";

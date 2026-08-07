@@ -1,5 +1,4 @@
 import itemCardPlaceholder from "../../assets/images/itemCardPlaceholder.png";
-import stylesCollectionsPage from "../../pages/CollectionsPage/CollectionsPage.module.css";
 import filtersBtn from "../../assets/icons/filtersBtn.svg";
 import type {Dispatch, RefObject, SetStateAction} from "react";
 import styles from "./DetailedTitle.module.css"
@@ -33,7 +32,7 @@ export default function DetailedTitle(
 
         <button
           ref={detailedSidebarButtonRef}
-          className={stylesCollectionsPage.filtersButton}
+          className={styles.filtersButton}
           onClick={() => setIsSidebarOpen(prev => !prev)}
         >
           <img src={filtersBtn} alt="Кнопка с фильтрами"/>

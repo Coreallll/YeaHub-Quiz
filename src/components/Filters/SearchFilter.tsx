@@ -1,35 +1,23 @@
 import searchIcon from '../../assets/icons/searchIcon.svg'
-import styles from '../../pages/CollectionsPage/CollectionsSidebar/Sidebar.module.css';
+import styles from './Filters.module.css';
 import type {ChangeEvent, Dispatch, SetStateAction} from "react";
 import type {SetURLSearchParams} from "react-router-dom";
 
 interface SearchFilterProps {
-  searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
+  searchDraft: string;
+  setSearchDraft: Dispatch<SetStateAction<string>>;
   searchParams: URLSearchParams;
   setSearchParams: SetURLSearchParams;
 }
 
 export default function SearchFilter(
     {
-      searchValue,
-      setSearchValue,
-      searchParams,
-      setSearchParams
+      searchDraft,
+      setSearchDraft,
     }: SearchFilterProps) {
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    setSearchValue(value);
-
-    const params = Object.fromEntries(searchParams);
-    if(value.trim().length > 0) {
-      params.search = value
-    } else {
-      delete params.search
-    }
-
-    setSearchParams(params);
+    setSearchDraft(event.target.value);
   }
 
   return (
@@ -43,7 +31,7 @@ export default function SearchFilter(
         type="search"
         name="search"
         placeholder="Введите запрос..."
-        value={searchValue}
+        value={searchDraft}
         onChange={handleSearch}
       />
     </div>

@@ -24,14 +24,14 @@ export default function DetailedQuestionPage() {
 
   const {
     question,
-    detailedLoading,
+    isQuestionLoading,
     isPrevDisabled,
     isNextDisabled,
     prevQuestionId,
     nextQuestionId,
   } = useDetailedQuestionPage(questionsData);
 
-  if (detailedLoading) {
+  if (isQuestionLoading) {
     return (
       <DetailedQuestionPageSkeleton />
     )
@@ -74,7 +74,7 @@ export default function DetailedQuestionPage() {
         </div>
         <DetailedQuestionPageSidebar
           question={question}
-          detailedLoading={detailedLoading}
+          isQuestionLoading={isQuestionLoading}
         />
       </div>
     </div>

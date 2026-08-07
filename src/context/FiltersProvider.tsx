@@ -1,5 +1,5 @@
 import {useSearchParams} from "react-router-dom";
-import {type ReactNode, useState} from "react";
+import {type ReactNode, useEffect, useRef, useState} from "react";
 import {useDebounce} from "../hooks/useDebounce.ts";
 import { FiltersContext } from "./FiltersContext.ts";
 
@@ -15,21 +15,70 @@ export function FiltersProvider({children}: FiltersProviderProps) {
 
   const specFilter = searchParams.get("specializations") ?? "11";
 
-  const searchQuery = searchParams.get("search") ?? "";
-  const [searchValue, setSearchValue] = useState(searchQuery);
-  const debounceKeywords = useDebounce(searchValue, 800);
+  const appliedSearch = searchParams.get("search") ?? "";
+  const [searchDraft, setSearchDraft] = useState(appliedSearch);
+  const [syncedSearch, setSyncedSearch] = useState(appliedSearch);
+  const debouncedSearch = useDebounce(searchDraft, 800);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const accessFilter = searchParams.get("isFree") ?? "";
 
+  if (appliedSearch !== syncedSearch) {
+    setSyncedSearch(appliedSearch);
+    setSearchDraft(appliedSearch);
+  }
 
-  function clearFilters(nextSpec: string = "11") {
-    setSearchParams({
-      specializations: nextSpec,
+  const setSearchParamsRef = useRef(setSearchParams);
+  useEffect(() => {
+    setSearchParamsRef.current = setSearchParams;
+  });
+
+  useEffect(() => {
+    const normalizedSearch = debouncedSearch.trim();
+
+    setSearchParamsRef.current(
+      (prevParams) => {
+        const params = new URLSearchParams(prevParams);
+
+        if (normalizedSearch === (prevParams.get("search") ?? "")) return params;
+
+        if (normalizedSearch) {
+          params.set("search", normalizedSearch);
+        } else {
+          params.delete("search");
+        }
+
+        params.delete("page");
+
+        return params;
+      },
+      {
+        replace: true,
+      }
+    );
+  }, [debouncedSearch]);
+
+  function clearFilters(
+    nextSpec: string = "11"
+  ) {
+    setSearchDraft("");
+
+    setSearchParams((prevParams) => {
+      const params =
+        new URLSearchParams(prevParams);
+
+      params.set(
+        "specializations",
+        nextSpec
+      );
+
+      params.delete("search");
+      params.delete("isFree");
+      params.delete("page");
+
+      return params;
     });
-
-    setSearchValue("");
   }
 
   const value = {
@@ -40,15 +89,15 @@ export function FiltersProvider({children}: FiltersProviderProps) {
 
     specFilter,
 
-    searchValue,
-    setSearchValue,
-    debounceKeywords,
+    searchDraft,
+    setSearchDraft,
 
     clearFilters,
 
     isSidebarOpen,
     setIsSidebarOpen,
-    accessFilter
+    accessFilter,
+    appliedSearch
   }
 
   return (

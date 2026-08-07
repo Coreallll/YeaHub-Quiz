@@ -5,7 +5,6 @@ import DetailedSidebarAuthor from "../DetailedSidebar/DetailedSidebarAuthor.tsx"
 import type {CollectionItem} from "../../../api/getColletionsData.ts";
 import DetailedSidebarTags from "../DetailedSidebar/DetailedSidebarTags.tsx";
 import type {CollectionSpec} from "../../../api/getCollectionSpecsFilters.ts";
-import {replaceQueryParams} from "../../../utils/replaceQueryParams.ts";
 
 interface DetailedCollectionSidebarProps {
   collection: CollectionItem;
@@ -21,12 +20,8 @@ export default function DetailedCollectionPageSidebar(
   }: DetailedCollectionSidebarProps) {
 
   const {
-    searchParams,
-    setSearchParams,
-
     specFilter,
     clearFilters,
-
   } = useFiltersContext();
 
   return (
@@ -38,12 +33,6 @@ export default function DetailedCollectionPageSidebar(
           activeValue={specFilter}
           setFilter={(spec) => {
             clearFilters(String(spec.id));
-            const params = replaceQueryParams(
-              searchParams,
-              "specializations",
-              spec.id
-            );
-            setSearchParams(params);
           }}
           getLabel={(spec) => spec.title}
           getValue={(spec) => spec.id}

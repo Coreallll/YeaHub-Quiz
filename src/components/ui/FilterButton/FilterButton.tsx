@@ -1,4 +1,4 @@
-import styles from "../../../pages/CollectionsPage/CollectionsSidebar/Sidebar.module.css";
+import styles from "./FilterButton.module.css";
 import type {ReactNode} from "react";
 
 interface FilterButtonProps {

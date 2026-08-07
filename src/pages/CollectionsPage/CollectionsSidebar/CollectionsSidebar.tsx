@@ -22,8 +22,8 @@ export default function CollectionsSidebar(
   }: CollectionsSidebarProps) {
 
   const {
-    searchValue,
-    setSearchValue,
+    searchDraft,
+    setSearchDraft,
     searchParams,
     setSearchParams,
 
@@ -42,17 +42,14 @@ export default function CollectionsSidebar(
       ) : (
         <>
           <SearchFilter
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
+            searchDraft={searchDraft}
+            setSearchDraft={setSearchDraft}
             searchParams={searchParams}
             setSearchParams={setSearchParams}
           />
           <FilterSpecializations
             specs={specs}
             specFilter={specFilter}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-
             clearFilters={clearFilters}
           />
           <FilterAccess

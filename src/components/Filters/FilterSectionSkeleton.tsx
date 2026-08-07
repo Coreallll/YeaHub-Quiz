@@ -1,5 +1,5 @@
 import Skeleton from "../ui/Skeleton/Skeleton.tsx";
-import styles from '../../pages/CollectionsPage/CollectionsSidebar/Sidebar.module.css'
+import styles from './Filters.module.css'
 
 interface FilterSectionSkeletonProps {
   widthSkeletonFilter?: number;

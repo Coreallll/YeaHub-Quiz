@@ -1,16 +1,11 @@
-import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getQuestionById} from "../api/getQuestionIdData.ts";
-// import {useQuestions} from "./useQuestions.js";
-import type {QuestionItem} from "../api/getQuestionsData.ts";
+import {type QuestionItem} from "../api/getQuestionsData.ts";
+import {useAsync} from "./useAsync.ts";
 
 export const useDetailedQuestionPage = (questionsData: QuestionItem[]) => {
-  const [question, setQuestion] = useState<QuestionItem | null>(null);
-  const [detailedLoading, setDetailedLoading] = useState(true);
 
   const { questionId } = useParams();
-
-  // const { questionsData } = useQuestions();
 
   const currentQuestionId = Number(questionId);
 
@@ -39,28 +34,16 @@ export const useDetailedQuestionPage = (questionsData: QuestionItem[]) => {
       ? questionIds[currentIndex + 1]
       : null;
 
-  useEffect(() => {
-    async function getQuestion() {
-      try {
-        setDetailedLoading(true);
-
-        const data = await getQuestionById(Number(questionId));
-
-        setQuestion(data);
-      } catch (error) {
-        console.log(error)
-        throw error;
-      } finally {
-        setDetailedLoading(false);
-      }
-    }
-
-    getQuestion();
-  }, [questionId]);
+  const {
+    data: question,
+    isLoading: isQuestionLoading,
+  } = useAsync(
+    (signal) => getQuestionById(Number(questionId), signal), [questionId]
+  )
 
   return {
     question,
-    detailedLoading,
+    isQuestionLoading,
 
     isPrevDisabled,
     isNextDisabled,

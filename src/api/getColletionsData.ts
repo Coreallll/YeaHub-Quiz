@@ -6,8 +6,9 @@ interface GetCollectionsItemsParams {
   currentPage: number;
   cardsOnPage: number;
   specFilter?: string | null;
-  debounceKeywords?: string;
   accessFilter?: string;
+  appliedSearch?: string;
+  signal?: AbortSignal;
 }
 
 export interface Company {
@@ -54,8 +55,9 @@ export async function getCollectionsItems({
   currentPage,
   cardsOnPage,
   specFilter,
-  debounceKeywords,
   accessFilter,
+  appliedSearch,
+  signal
 }: GetCollectionsItemsParams): Promise<CollectionsResponse> {
 
   const params = new URLSearchParams();
@@ -67,8 +69,8 @@ export async function getCollectionsItems({
     params.set('specializations', specFilter);
   }
 
-  if(debounceKeywords) {
-    params.set('titleOrDescriptionSearch', debounceKeywords.trim());
+  if(appliedSearch) {
+    params.set('titleOrDescriptionSearch', appliedSearch.trim());
   }
 
   if (accessFilter) {
@@ -77,6 +79,6 @@ export async function getCollectionsItems({
 
   const url = `${BASE_URL}/collections/public?${params.toString()}`
 
-  const response = await axios.get(url);
+  const response = await axios.get(url, {signal});
   return response.data;
 }
