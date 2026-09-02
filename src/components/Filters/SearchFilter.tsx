@@ -1,20 +1,10 @@
-import searchIcon from '../../assets/icons/searchIcon.svg'
-import styles from './Filters.module.css';
-import type {ChangeEvent, Dispatch, SetStateAction} from "react";
-import type {SetURLSearchParams} from "react-router-dom";
+import searchIcon from "../../assets/icons/searchIcon.svg";
+import styles from "./Filters.module.css";
+import type { ChangeEvent } from "react";
+import useSearch from "../../hooks/useSearch.ts";
 
-interface SearchFilterProps {
-  searchDraft: string;
-  setSearchDraft: Dispatch<SetStateAction<string>>;
-  searchParams: URLSearchParams;
-  setSearchParams: SetURLSearchParams;
-}
-
-export default function SearchFilter(
-    {
-      searchDraft,
-      setSearchDraft,
-    }: SearchFilterProps) {
+export default function SearchFilter() {
+  const { searchDraft, setSearchDraft } = useSearch();
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
     setSearchDraft(event.target.value);
@@ -23,7 +13,8 @@ export default function SearchFilter(
   return (
     <div className={styles.searchWrap}>
       <img
-        src={searchIcon} alt="Поиск"
+        src={searchIcon}
+        alt="Поиск"
         className={styles.searchIcon}
       />
       <input
@@ -35,5 +26,5 @@ export default function SearchFilter(
         onChange={handleSearch}
       />
     </div>
-  )
+  );
 }

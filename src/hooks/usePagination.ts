@@ -1,26 +1,28 @@
-import {useCallback, useEffect} from "react";
-import {useFiltersContext} from "./useFiltersContext.ts";
-
+import { useCallback, useEffect } from "react";
+import { useUrlParams } from "./useUrlParams.ts";
+// import { useFiltersContext } from "./useFiltersContext.ts";
 
 export function usePagination(totalPages: number) {
-  const { searchParams, setSearchParams } = useFiltersContext();
+  const cardsOnPage = 10;
+
+  const { searchParams, setSearchParams } = useUrlParams();
   const pageFromParams = Number(searchParams.get("page") ?? 1);
-  const currentPage = Number.isInteger(pageFromParams) && pageFromParams > 0
-    ? pageFromParams
-    : 1;
+  const currentPage = Number.isInteger(pageFromParams) && pageFromParams > 0 ? pageFromParams : 1;
 
-  const changePage = useCallback((page: number) => {
-    const lastPage = Math.max(totalPages, 1);
-    const nextPage = Math.min(Math.max(page, 1), lastPage);
+  const changePage = useCallback(
+    (page: number) => {
+      const lastPage = Math.max(totalPages, 1);
+      const nextPage = Math.min(Math.max(page, 1), lastPage);
 
-    setSearchParams((prevParams) => {
-      const params = new URLSearchParams(prevParams);
+      setSearchParams((prevParams) => {
+        const params = new URLSearchParams(prevParams);
 
-      params.set("page", String(nextPage));
-      return params;
-    });
-  }, [totalPages, setSearchParams]);
-
+        params.set("page", String(nextPage));
+        return params;
+      });
+    },
+    [totalPages, setSearchParams],
+  );
 
   function handleNextPage() {
     changePage(currentPage + 1);
@@ -41,6 +43,7 @@ export function usePagination(totalPages: number) {
   }, [currentPage, totalPages, changePage]);
 
   return {
+    cardsOnPage,
     currentPage,
     handleNextPage,
     handlePrevPage,

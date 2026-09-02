@@ -1,19 +1,13 @@
 import FilterSection from "./FilterSection.tsx";
-import type {Filter} from "../../api/getAllFilters.ts";
+import { useSpecFilter } from "../../hooks/useSpecFilter.ts";
+import { useGetSpecializationsQuery } from "../../store/api/specializationsApi.ts";
+import { useClearFilters } from "../../hooks/useClearFilters.ts";
 
-interface FilterSpecializationProps {
-  specs: Filter[];
-  specFilter: string | null;
-  clearFilters: (nextSpec?: string) => void;
-  inactive?: boolean;
-}
+export default function FilterSpecializations() {
+  const { specFilter } = useSpecFilter();
+  const { data: specs = [] } = useGetSpecializationsQuery();
 
-export default function FilterSpecializations(
-    {
-      specs,
-      specFilter,
-      clearFilters
-    }: FilterSpecializationProps) {
+  const clearFilters = useClearFilters();
 
   return (
     <FilterSection
@@ -27,5 +21,5 @@ export default function FilterSpecializations(
       getValue={(spec) => spec.id}
       showAllBtn
     />
-  )
+  );
 }

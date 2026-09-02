@@ -8,9 +8,13 @@ export interface Specialization {
   imageSrc: string | null;
 }
 
+// interface SpecializationsResponse {
+//   data: Specialization[];
+// }
+
 export const specializationsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSpecializations: builder.query({
+    getSpecializations: builder.query<Specialization[], void>({
       query: () => ({
         url: "specializations",
       }),

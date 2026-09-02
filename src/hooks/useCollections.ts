@@ -1,46 +1,20 @@
-import {useState} from "react";
-import {useFiltersContext} from "./useFiltersContext.ts";
-import {getCollectionsItems} from "../api/getColletionsData.ts";
-import {usePagination} from "./usePagination.ts";
-import {useAsync} from "./useAsync.ts";
+import { useState } from "react";
+import { usePagination } from "./usePagination.ts";
+import { useGetCollectionsQuery } from "../store/api/collectionsApi.ts";
 
 export const useCollections = () => {
-
-  const { cardsOnPage } = useFiltersContext();
-
-  const {
-    specFilter,
-    accessFilter,
-    appliedSearch
-  } = useFiltersContext();
-
   const [totalCollectionsPages, setTotalCollectionsPages] = useState(1);
-  const { currentPage } = usePagination(totalCollectionsPages);
+  const { currentPage, cardsOnPage } = usePagination(totalCollectionsPages);
 
   const {
     data: response,
+    isError,
     isLoading: isCollectionsLoading,
-    error,
-  } = useAsync(
-    (signal) => getCollectionsItems({
-      currentPage,
-      cardsOnPage,
-      specFilter,
-      accessFilter,
-      appliedSearch,
-      signal
-    }), [
-      currentPage,
-      cardsOnPage,
-      specFilter,
-      accessFilter,
-      appliedSearch
-    ]
-  )
+  } = useGetCollectionsQuery({ currentPage, cardsOnPage });
 
   const [syncedCollectionsResponse, setSyncedCollectionsResponse] = useState(response);
 
-  if(response !== syncedCollectionsResponse) {
+  if (response !== syncedCollectionsResponse) {
     setSyncedCollectionsResponse(response);
     if (response) setTotalCollectionsPages(Math.ceil(response.total / response.limit));
   }
@@ -48,9 +22,9 @@ export const useCollections = () => {
   return {
     collectionsData: response?.data ?? [],
     isCollectionsLoading,
-    errorMessage: error,
+    isError: isError,
     currentPage,
     totalCollectionsPages,
     cardsOnPage,
-  }
-}
+  };
+};

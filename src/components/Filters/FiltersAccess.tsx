@@ -1,20 +1,11 @@
 import styles from "./Filters.module.css";
 import FilterSection from "./FilterSection.tsx";
-import type {SetURLSearchParams} from "react-router-dom";
-import {replaceQueryParams} from "../../utils/replaceQueryParams.ts";
+import { replaceQueryParams } from "../../utils/replaceQueryParams.ts";
+import { useUrlParams } from "../../hooks/useUrlParams.ts";
 
-interface FilterAccessProps {
-  accessFilter: string;
-  searchParams: URLSearchParams;
-  setSearchParams: SetURLSearchParams;
-}
-
-export default function FilterAccess(
-  {
-    accessFilter,
-    searchParams,
-    setSearchParams,
-  }: FilterAccessProps) {
+export default function FilterAccess() {
+  const { searchParams, setSearchParams } = useUrlParams();
+  const accessFilter = searchParams.get("isFree") ?? "";
 
   const accessItems = [
     {
@@ -37,14 +28,10 @@ export default function FilterAccess(
         getValue={(access) => access.value}
         getLabel={(access) => access.label}
         setFilter={(access) => {
-          const params = replaceQueryParams(
-            searchParams,
-            "isFree",
-            access.value
-          );
+          const params = replaceQueryParams(searchParams, "isFree", access.value);
           setSearchParams(params);
         }}
       />
     </section>
-  )
+  );
 }
