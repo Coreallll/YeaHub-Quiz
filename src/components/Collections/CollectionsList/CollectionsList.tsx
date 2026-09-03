@@ -2,11 +2,11 @@ import { memo } from "react";
 import CollectionCard from "../CollectionCard/CollectionCard.tsx";
 import styles from "./CollectionList.module.css";
 import CollectionsListSkeleton from "./CollectionsListSkeleton.tsx";
-import type { CollectionItem } from "../../../api/getColletionsData.ts";
+import type { Collection } from "../../../types/collectionTypes.ts";
 import { useClearFilters } from "../../../hooks/useClearFilters.ts";
 
 interface CollectionsListProps {
-  collectionsData: CollectionItem[];
+  collectionsData: Collection[];
   isCollectionsLoading: boolean;
   isError?: boolean;
 }
@@ -38,7 +38,7 @@ export default memo(function CollectionsList({
           <h2 className={styles.emptyTitle}>По запросу ничего не найдено</h2>
           <button
             className={styles.clearFilter}
-            onClick={() => clearFilters()}
+            onClick={clearFilters}
           >
             Сбросить фильтры
           </button>

@@ -1,6 +1,6 @@
-import styles from './Filters.module.css'
+import styles from "./Filters.module.css";
 import FilterButton from "../ui/FilterButton/FilterButton.js";
-import {useState} from "react";
+import { useState } from "react";
 import FilterIsFree from "./FilterIsFree.tsx";
 import FilterQuestionsCount from "./FilterQuestionsCount.tsx";
 
@@ -20,96 +20,102 @@ export interface FilterSectionProps<T> {
   showAllBtn?: boolean;
   inactive?: boolean;
 
-  isActive?: (
-    item: T,
-    activeValue: ActiveValue
-  ) => boolean;
+  isActive?: (item: T, activeValue: ActiveValue) => boolean;
 
   isFree?: boolean;
   questionsCount?: number;
 }
 
-export default function FilterSection<T>(
-  {
-    title,
-    items,
-    activeValue,
-    setFilter,
-    getValue,
-    getLabel,
-    getImageSrc,
-    multiple = false,
-    showAllBtn,
-    isActive: getIsActive,
-    inactive,
-    isFree,
-    questionsCount,
-  }: FilterSectionProps<T>) {
-
+export default function FilterSection<T>({
+  title,
+  items,
+  activeValue,
+  setFilter,
+  getValue,
+  getLabel,
+  getImageSrc,
+  multiple = false,
+  showAllBtn,
+  isActive: getIsActive,
+  inactive,
+  isFree,
+  questionsCount,
+}: FilterSectionProps<T>) {
   const [showAll, setShowAll] = useState(false);
 
-  if(questionsCount) {
-    return <FilterQuestionsCount title={title} inactive={inactive} questionsCount={questionsCount} />
+  if (isFree !== undefined) {
+    return (
+      <FilterIsFree
+        title={title}
+        isFree={isFree}
+        inactive={inactive}
+      />
+    );
+  }
+  if (questionsCount) {
+    return (
+      <FilterQuestionsCount
+        title={title}
+        inactive={inactive}
+        questionsCount={questionsCount}
+      />
+    );
   }
 
-  if(isFree !== undefined) {
-    return <FilterIsFree title={title} isFree={isFree} inactive={inactive} />
-  }
-
-  if(!items || !getValue) return (
-    <div>Произошла ошибка при загрузке фильтров</div>
-  );
+  if (!items || !getValue) return <div>Произошла ошибка при загрузке фильтров</div>;
 
   const visibleItems = showAll ? items : items?.slice(0, 5);
 
-  const renderedItems = visibleItems.map(item => {
+  const renderedItems = visibleItems.map((item) => {
     const value = String(getValue(item));
-    const label = getLabel
-      ? getLabel(item)
-      : String(item);
-    const isActive = activeValue && getIsActive
-      ? getIsActive(item, activeValue)
-      : multiple
-        ? (activeValue || []).includes(value)
-        : activeValue === value;
+    const label = getLabel ? getLabel(item) : String(item);
+    const isActive =
+      activeValue && getIsActive
+        ? getIsActive(item, activeValue)
+        : multiple
+          ? (activeValue || []).includes(value)
+          : activeValue === value;
     const imageSrc = getImageSrc?.(item);
 
     return (
       <li
-          className={styles.filterItem}
+        className={styles.filterItem}
         key={value}
       >
         <FilterButton
-          className={`${isActive ? styles.filterActive : ""} ${inactive ? styles.inactive : ""}`}
+          className={`${isActive ? styles.filterActive : ""} ${inactive ? styles.filterInactive : ""}`}
           onClick={() => {
             if (setFilter) {
               setFilter(item);
             }
           }}
         >
-          {imageSrc && <img src={imageSrc} alt={label} />}
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt={label}
+            />
+          )}
           <span>{label}</span>
         </FilterButton>
       </li>
-    )
-  })
+    );
+  });
 
   return (
     <section className={styles.section}>
       <h3 className={styles.sectionTitle}>{title}</h3>
-      <ul className={styles.filtersList}>
-        {renderedItems}
-      </ul>
+      <ul className={styles.filtersList}>{renderedItems}</ul>
       {showAllBtn && renderedItems.length > 4 ? (
         <button
           className={styles.filtersAll}
           onClick={() => {
-            setShowAll(prev => !prev)
+            setShowAll((prev) => !prev);
           }}
         >
           {showAll ? "Скрыть" : "Посмотреть все"}
         </button>
       ) : null}
     </section>
-  )
+  );
 }

@@ -10,7 +10,11 @@ interface CollectionsSidebarProps {
 }
 
 export default function CollectionsSidebar({ className = "" }: CollectionsSidebarProps) {
-  const { isLoading: isSidebarLoading, error: sidebarFiltersError } = useGetSpecializationsQuery();
+  const {
+    data: specs = [],
+    isLoading: isSidebarLoading,
+    error: sidebarFiltersError,
+  } = useGetSpecializationsQuery();
 
   return (
     <aside className={`${styles.sidebar} ${className}`}>
@@ -21,7 +25,7 @@ export default function CollectionsSidebar({ className = "" }: CollectionsSideba
       ) : (
         <>
           <SearchFilter />
-          <FilterSpecializations />
+          <FilterSpecializations specs={specs} />
           <FilterAccess />
         </>
       )}

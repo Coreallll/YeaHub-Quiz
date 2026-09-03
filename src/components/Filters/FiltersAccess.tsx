@@ -2,10 +2,11 @@ import styles from "./Filters.module.css";
 import FilterSection from "./FilterSection.tsx";
 import { replaceQueryParams } from "../../utils/replaceQueryParams.ts";
 import { useUrlParams } from "../../hooks/useUrlParams.ts";
+import { useCollectionFilters } from "../../hooks/useCollectionFilters.ts";
 
 export default function FilterAccess() {
   const { searchParams, setSearchParams } = useUrlParams();
-  const accessFilter = searchParams.get("isFree") ?? "";
+  const { accessFilter } = useCollectionFilters();
 
   const accessItems = [
     {

@@ -20,9 +20,4 @@
         border-color: var(--purple700);
         transition: border-color 0.1s ease-in-out;
     }
-
-    &.inactive {
-        pointer-events: none;
-        cursor: default;
-    }
 }

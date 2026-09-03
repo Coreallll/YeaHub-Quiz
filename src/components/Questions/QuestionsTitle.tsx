@@ -1,41 +1,36 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import Skeleton from "../ui/Skeleton/Skeleton.tsx";
 import styles from "./Questions.module.css";
-import {useFiltersContext} from "../../hooks/useFiltersContext.ts";
-import type {CollectionSpec} from "../../api/getCollectionSpecsFilters.ts";
+import type { Collection } from "../../store/api/collectionsApi.ts";
+import { useSpecFilter } from "../../hooks/useSpecFilter.ts";
 
 interface QuestionsTitleProps {
-  collectionSpecs: CollectionSpec[];
+  collection: Collection;
   isQuestionsLoading: boolean;
 }
 
-export default function QuestionsTitle(
-  {
-    collectionSpecs,
-    isQuestionsLoading,
-  }: QuestionsTitleProps
-) {
+export default function QuestionsTitle({ collection, isQuestionsLoading }: QuestionsTitleProps) {
+  const { specFilter } = useSpecFilter();
 
-  const { specFilter } = useFiltersContext();
-
-  const currentSpec = collectionSpecs.find(spec => spec.id === Number(specFilter));
+  const currentSpec = collection?.specializations?.find((spec) => spec.id === String(specFilter));
   const specTitle = currentSpec?.title;
 
   useEffect(() => {
     if (isQuestionsLoading) return;
 
-    document.title = specTitle
-      ? `Вопросы ${specTitle}`
-      : 'Вопросы не найдены';
+    document.title = specTitle ? `Вопросы ${specTitle}` : "Вопросы не найдены";
   }, [specTitle, isQuestionsLoading]);
 
   return (
     <div className={styles.contentTitle}>
       {isQuestionsLoading ? (
-        <Skeleton width={300} height={24} />
+        <Skeleton
+          width={300}
+          height={24}
+        />
       ) : (
         <h1 className={styles.mainTitle}>Вопросы {specTitle}</h1>
       )}
     </div>
-  )
+  );
 }

@@ -1,22 +1,21 @@
 import itemCardPlaceholder from "../../assets/images/itemCardPlaceholder.png";
 import filtersBtn from "../../assets/icons/filtersBtn.svg";
-import type {Dispatch, RefObject, SetStateAction} from "react";
-import styles from "./DetailedTitle.module.css"
-import type {CollectionItem} from "../../api/getColletionsData.ts";
-import type {QuestionItem} from "../../api/getQuestionsData.ts";
+import type { RefObject } from "react";
+import styles from "./DetailedTitle.module.css";
+import type { Question } from "../../types/questionTypes.ts";
+import type { Collection } from "../../types/collectionTypes.ts";
 
 interface DetailedTitleProps {
-  item: CollectionItem | QuestionItem | null;
+  item: Collection | Question | null;
   detailedSidebarButtonRef: RefObject<HTMLButtonElement | null>;
-  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
+  toggleSidebar: () => void;
 }
 
-export default function DetailedTitle(
-  {
-    item,
-    detailedSidebarButtonRef,
-    setIsSidebarOpen
-  }: DetailedTitleProps) {
+export default function DetailedTitle({
+  item,
+  detailedSidebarButtonRef,
+  toggleSidebar,
+}: DetailedTitleProps) {
   return (
     <>
       <img
@@ -33,11 +32,14 @@ export default function DetailedTitle(
         <button
           ref={detailedSidebarButtonRef}
           className={styles.filtersButton}
-          onClick={() => setIsSidebarOpen(prev => !prev)}
+          onClick={() => toggleSidebar}
         >
-          <img src={filtersBtn} alt="Кнопка с фильтрами"/>
+          <img
+            src={filtersBtn}
+            alt="Кнопка с фильтрами"
+          />
         </button>
       </div>
     </>
-  )
+  );
 }

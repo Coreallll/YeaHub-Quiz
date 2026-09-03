@@ -17,12 +17,12 @@ export default function FilterQuestionsCount(
     <section className={styles.section}>
       <h3 className={styles.sectionTitle}>{title}</h3>
       <ul className={styles.filtersList}>
-        <li className={styles.filterItem} >
-          <FilterButton className={`${inactive ? styles.inactive : ""}`} >
+        <li className={styles.filterItem}>
+          <FilterButton className={`${inactive ? styles.filterInactive : ""}`}>
             <span>{questionsCount}</span>
           </FilterButton>
         </li>
       </ul>
     </section>
-  )
+  );
 }

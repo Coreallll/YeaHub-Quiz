@@ -1,61 +1,65 @@
 import QuestionsTitle from "./QuestionsTitle.tsx";
 import QuestionsList from "./QuestionsList/QuestionsList.tsx";
 import styles from "./Questions.module.css";
+import stylesQuestionsList from "../Questions/QuestionsList/QuestionsList.module.css";
 import Pagination from "../ui/Pagination/Pagination.tsx";
-import {usePagination} from "../../hooks/usePagination.ts";
-import type {QuestionItem} from "../../api/getQuestionsData.ts";
-import type {CollectionSpec} from "../../api/getCollectionSpecsFilters.ts";
-import type {CollectionItem} from "../../api/getColletionsData.ts";
+import { usePagination } from "../../hooks/usePagination.ts";
+import { useQuestions } from "../../hooks/useQuestions.ts";
+import type { Collection } from "../../types/collectionTypes.ts";
+import QuestionsListSkeleton from "./QuestionsList/QuestionsListSkeleton.tsx";
+import { useNavigate } from "react-router-dom";
 
 export interface QuestionsProps {
-  collection: CollectionItem;
-  collectionSpecs: CollectionSpec[];
-  questionsData: QuestionItem[];
-  errorMessage: string;
-  totalQuestionsPages: number;
-  isQuestionsLoading: boolean;
+  collection: Collection;
 }
 
-export default function Questions(
-  {
-    collection,
-    collectionSpecs,
-    questionsData,
-    errorMessage,
-    totalQuestionsPages,
-    isQuestionsLoading
-  }:QuestionsProps) {
+export default function Questions({ collection }: QuestionsProps) {
+  const { questionsData, isQuestionError, totalQuestionsPages, isQuestionsLoading } =
+    useQuestions();
 
+  const { currentPage, handleNextPage, handlePrevPage, handlePageClick } =
+    usePagination(totalQuestionsPages);
 
-  const {
-    currentPage,
-    handleNextPage,
-    handlePrevPage,
-    handlePageClick,
-  } = usePagination(totalQuestionsPages);
+  const navigate = useNavigate();
 
   return (
     <div className="mainContent">
       <QuestionsTitle
-        collectionSpecs={collectionSpecs}
-        isQuestionsLoading={isQuestionsLoading}
-      />
-      <hr className={styles.divider}/>
-      <QuestionsList
         collection={collection}
-        questionsData={questionsData}
         isQuestionsLoading={isQuestionsLoading}
-        errorMessage={errorMessage}
       />
-
-      <Pagination
-        isQuestionsLoading={isQuestionsLoading}
-        currentPage={currentPage}
-        totalPages={totalQuestionsPages}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-        handlePageClick={handlePageClick}
-      />
+      <hr className={styles.divider} />
+      {isQuestionError ? (
+        <p>При загрузке вопросов произошла ошибка</p>
+      ) : isQuestionsLoading ? (
+        <QuestionsListSkeleton />
+      ) : collection.isFree === false ? (
+        <ul className={stylesQuestionsList.questionList}>
+          <div className={stylesQuestionsList.listEmpty}>
+            <h2 className={stylesQuestionsList.emptyTitle}>
+              Контент предназначен только для участников
+            </h2>
+            <button
+              className={stylesQuestionsList.emptyBtn}
+              onClick={() => navigate(-1)}
+            >
+              Вернуться назад
+            </button>
+          </div>
+        </ul>
+      ) : (
+        <>
+          <QuestionsList questionsData={questionsData} />
+          <Pagination
+            isQuestionsLoading={isQuestionsLoading}
+            currentPage={currentPage}
+            totalPages={totalQuestionsPages}
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
+            handlePageClick={handlePageClick}
+          />
+        </>
+      )}
     </div>
-  )
+  );
 }

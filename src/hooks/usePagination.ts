@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from "react";
 import { useUrlParams } from "./useUrlParams.ts";
-// import { useFiltersContext } from "./useFiltersContext.ts";
 
 export function usePagination(totalPages: number) {
   const cardsOnPage = 10;

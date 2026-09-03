@@ -55,6 +55,10 @@
     background-color: var(--purple700);
     color: var(--white900);
 }
+.filterInactive {
+    pointer-events: none;
+    cursor: default;
+}
 @media(max-width: 1024px) {
     .filtersList {
         max-height: 500px;

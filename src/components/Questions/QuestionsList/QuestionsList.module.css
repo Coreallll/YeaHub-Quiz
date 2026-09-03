@@ -37,8 +37,3 @@
         }
     }
 }
-@media(max-width: 1024px) {
-    .questionList {
-        gap: 20px;
-    }
-}

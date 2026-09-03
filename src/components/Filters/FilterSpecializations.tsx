@@ -1,13 +1,12 @@
 import FilterSection from "./FilterSection.tsx";
 import { useSpecFilter } from "../../hooks/useSpecFilter.ts";
-import { useGetSpecializationsQuery } from "../../store/api/specializationsApi.ts";
-import { useClearFilters } from "../../hooks/useClearFilters.ts";
+import type { Specialization } from "../../types/types.ts";
 
-export default function FilterSpecializations() {
-  const { specFilter } = useSpecFilter();
-  const { data: specs = [] } = useGetSpecializationsQuery();
-
-  const clearFilters = useClearFilters();
+interface FilterSpecializationsProps {
+  specs: Specialization[];
+}
+export default function FilterSpecializations({ specs }: FilterSpecializationsProps) {
+  const { specFilter, setSpecFilter } = useSpecFilter();
 
   return (
     <FilterSection
@@ -15,7 +14,7 @@ export default function FilterSpecializations() {
       items={specs}
       activeValue={specFilter}
       setFilter={(spec) => {
-        clearFilters(String(spec.id));
+        setSpecFilter(String(spec.id));
       }}
       getLabel={(spec) => spec.title}
       getValue={(spec) => spec.id}

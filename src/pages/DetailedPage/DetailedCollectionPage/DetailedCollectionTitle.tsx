@@ -1,44 +1,32 @@
-import {type Dispatch, type SetStateAction, useRef} from "react";
+import { useRef } from "react";
 import useOutsideClick from "../../../hooks/useOutsideClick.ts";
 import Drawer from "../../../components/ui/Drawer/Drawer.tsx";
 import closeBtn from "../../../assets/icons/closeBtn.svg";
-import stylesCollectionsPage from "../../CollectionsPage/CollectionsPage.module.css"
+import stylesCollectionsPage from "../../CollectionsPage/CollectionsPage.module.css";
 import styles from "./DetailedCollectionPage.module.css";
 import DetailedTitle from "../../../components/Detailed/DetailedTitle.tsx";
 import DetailedCollectionPageSidebar from "./DetailedCollectionPageSidebar.tsx";
-import type {CollectionItem} from "../../../api/getColletionsData.ts";
-import type {CollectionSpec} from "../../../api/getCollectionSpecsFilters.ts";
+import { useSidebarState } from "../../../hooks/useSidebarState.ts";
+import type { Collection } from "../../../types/collectionTypes.ts";
 
 interface DetailedCollectionTitleProps {
-  isSidebarOpen: boolean;
-  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
-  collectionSpecs: CollectionSpec[];
-  collection: CollectionItem;
+  collection: Collection;
 }
 
-export default function DetailedCollectionTitle(
-  {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    collectionSpecs,
-    collection
-  }: DetailedCollectionTitleProps) {
-
+export default function DetailedCollectionTitle({ collection }: DetailedCollectionTitleProps) {
   const detailedDrawerRef = useRef(null);
   const detailedSidebarButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  function sidebarClose() {
-    setIsSidebarOpen(false);
-  }
+  const { isSidebarOpen, closeSidebar, toggleSidebar } = useSidebarState();
 
-  useOutsideClick(detailedDrawerRef, sidebarClose, detailedSidebarButtonRef);
+  useOutsideClick(detailedDrawerRef, closeSidebar, detailedSidebarButtonRef);
 
   return (
     <div className={`${styles.shadowWrapper} ${styles.titleWrapper}`}>
       <DetailedTitle
         item={collection}
         detailedSidebarButtonRef={detailedSidebarButtonRef}
-        setIsSidebarOpen={setIsSidebarOpen}
+        toggleSidebar={toggleSidebar}
       />
       <Drawer
         drawerRef={detailedDrawerRef}
@@ -47,17 +35,19 @@ export default function DetailedCollectionTitle(
       >
         <button
           className={stylesCollectionsPage.closeBtn}
-          onClick={sidebarClose}
+          onClick={closeSidebar}
         >
-          <img src={closeBtn} alt="Кнопка закрытия сайдбара"/>
+          <img
+            src={closeBtn}
+            alt="Кнопка закрытия сайдбара"
+          />
         </button>
 
         <DetailedCollectionPageSidebar
           collection={collection}
-          collectionSpecs={collectionSpecs}
           className={stylesCollectionsPage.fixedSidebar}
         />
       </Drawer>
     </div>
-  )
+  );
 }

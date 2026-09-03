@@ -1,13 +1,13 @@
 import stylesSidebar from "../../../CollectionsPage/CollectionsSidebar/Sidebar.module.css";
 import stylesCard from "../../../../components/Questions/QuestionCard/QuestionCard.module.css";
-import styles from "./DetailedQuestionPageSidebar.module.css"
-import type {QuestionItem} from "../../../../api/getQuestionsData.ts";
+import styles from "./DetailedQuestionPageSidebar.module.css";
+import type { Question } from "../../../../api/getQuestionsData.ts";
 
 export type QuestionProps = {
-  question: QuestionItem
-}
+  question: Question;
+};
 
-export default function QuestionComplexity({question}: QuestionProps ) {
+export default function QuestionComplexity({ question }: QuestionProps) {
   return (
     <section className={stylesSidebar.section}>
       <h3 className={stylesSidebar.sectionTitle}>Уровень:</h3>
@@ -22,5 +22,5 @@ export default function QuestionComplexity({question}: QuestionProps ) {
         </div>
       </div>
     </section>
-  )
+  );
 }

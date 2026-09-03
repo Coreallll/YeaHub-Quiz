@@ -1,13 +1,13 @@
 import stylesSidebar from "../../CollectionsPage/CollectionsSidebar/Sidebar.module.css";
 import styles from "./DetailedSidebar.module.css";
-import type {CollectionItem} from "../../../api/getColletionsData.ts";
-import type {QuestionItem} from "../../../api/getQuestionsData.ts";
+import type { Collection } from "../../../types/collectionTypes.ts";
+import type { Question } from "../../../types/questionTypes.ts";
 
 interface SidebarAuthorProps {
-  item: CollectionItem | QuestionItem | null;
+  item: Collection | Question | null;
 }
 
-export default function DetailedSidebarAuthor({ item }:SidebarAuthorProps) {
+export default function DetailedSidebarAuthor({ item }: SidebarAuthorProps) {
   return (
     <section className={stylesSidebar.section}>
       <h3 className={styles.author}>
@@ -15,5 +15,5 @@ export default function DetailedSidebarAuthor({ item }:SidebarAuthorProps) {
         <span className={styles.authorName}>{item?.createdBy?.username}</span>
       </h3>
     </section>
-  )
+  );
 }

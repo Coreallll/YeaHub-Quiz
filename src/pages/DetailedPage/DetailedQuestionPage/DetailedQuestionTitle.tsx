@@ -1,41 +1,32 @@
-import {type Dispatch, type SetStateAction, useRef} from "react";
+import { useRef } from "react";
 import useOutsideClick from "../../../hooks/useOutsideClick.ts";
 import Drawer from "../../../components/ui/Drawer/Drawer.tsx";
 import closeBtn from "../../../assets/icons/closeBtn.svg";
-import stylesCollectionsPage from "../../CollectionsPage/CollectionsPage.module.css"
+import stylesCollectionsPage from "../../CollectionsPage/CollectionsPage.module.css";
 import styles from "../DetailedCollectionPage/DetailedCollectionPage.module.css";
 import DetailedTitle from "../../../components/Detailed/DetailedTitle.tsx";
 import DetailedQuestionPageSidebar from "../DetailedQuestionPage/DetailedQuestionPageSidebar/DetailedQuestionPageSidebar.tsx";
-import type {QuestionItem} from "../../../api/getQuestionsData.ts";
+import { useSidebarState } from "../../../hooks/useSidebarState.ts";
+import type { Question } from "../../../types/questionTypes.ts";
 
 interface DetailedQuestionTitleProps {
-  isSidebarOpen: boolean;
-  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
-  question: QuestionItem;
+  question: Question;
 }
 
-export default function DetailedQuestionTitle(
-  {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    question
-  }: DetailedQuestionTitleProps) {
-
+export default function DetailedQuestionTitle({ question }: DetailedQuestionTitleProps) {
   const detailedDrawerRef = useRef(null);
   const detailedSidebarButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  function sidebarClose() {
-    setIsSidebarOpen(false);
-  }
+  const { isSidebarOpen, closeSidebar, toggleSidebar } = useSidebarState();
 
-  useOutsideClick(detailedDrawerRef, sidebarClose, detailedSidebarButtonRef);
+  useOutsideClick(detailedDrawerRef, closeSidebar, detailedSidebarButtonRef);
 
   return (
     <div className={`${styles.shadowWrapper} ${styles.titleWrapper}`}>
       <DetailedTitle
         item={question}
         detailedSidebarButtonRef={detailedSidebarButtonRef}
-        setIsSidebarOpen={setIsSidebarOpen}
+        toggleSidebar={toggleSidebar}
       />
       <Drawer
         drawerRef={detailedDrawerRef}
@@ -44,9 +35,12 @@ export default function DetailedQuestionTitle(
       >
         <button
           className={stylesCollectionsPage.closeBtn}
-          onClick={sidebarClose}
+          onClick={closeSidebar}
         >
-          <img src={closeBtn} alt="Кнопка закрытия сайдбара"/>
+          <img
+            src={closeBtn}
+            alt="Кнопка закрытия сайдбара"
+          />
         </button>
 
         <DetailedQuestionPageSidebar
@@ -55,5 +49,5 @@ export default function DetailedQuestionTitle(
         />
       </Drawer>
     </div>
-  )
+  );
 }

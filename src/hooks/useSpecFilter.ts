@@ -1,8 +1,24 @@
 import { useUrlParams } from "./useUrlParams.ts";
+import { useCollectionFilters } from "./useCollectionFilters.ts";
 
 export const useSpecFilter = () => {
-  const { searchParams } = useUrlParams();
-  const specFilter = searchParams.get("specializations") ?? "11";
+  const { setSearchParams } = useUrlParams();
 
-  return { specFilter };
+  const { specFilter } = useCollectionFilters();
+
+  const setSpecFilter = (nextSpec: string) => {
+    setSearchParams((prevParams) => {
+      const params = new URLSearchParams(prevParams);
+
+      params.set("specializations", nextSpec);
+      params.delete("page");
+
+      return params;
+    });
+  };
+
+  return {
+    specFilter,
+    setSpecFilter,
+  };
 };

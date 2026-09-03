@@ -1,23 +1,14 @@
 import { baseApi } from "./baseApi.ts";
-
-export interface Specialization {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  imageSrc: string | null;
-}
-
-// interface SpecializationsResponse {
-//   data: Specialization[];
-// }
+import type { Specialization, SpecializationsResponse } from "../../types/types.ts";
 
 export const specializationsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getSpecializations: builder.query<Specialization[], void>({
       query: () => ({
         url: "specializations",
+        params: { limit: 30 },
       }),
+      transformResponse: (response: SpecializationsResponse) => response.data,
     }),
   }),
 });
