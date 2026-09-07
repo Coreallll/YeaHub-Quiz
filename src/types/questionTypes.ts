@@ -1,17 +1,11 @@
 import type { User } from "./types.ts";
+import type { Skill } from "./skillsTypes.ts";
 
-export interface GetQuestionsItemsParams {
+export interface QuestionsParams {
   currentPage: number;
   cardsOnPage: number;
   specFilter?: string | null;
   collectionId?: string;
-}
-
-export interface Skills {
-  id: number;
-  title: string;
-  description: string;
-  imageSrc: string;
 }
 
 export interface Question {
@@ -25,7 +19,7 @@ export interface Question {
   complexity: number;
   keywords: string[];
   createdBy: User;
-  questionSkills: Skills[];
+  questionSkills: Skill[];
 }
 
 export interface QuestionsResponse {

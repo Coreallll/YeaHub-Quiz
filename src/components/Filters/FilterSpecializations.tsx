@@ -1,6 +1,6 @@
 import FilterSection from "./FilterSection.tsx";
 import { useSpecFilter } from "../../hooks/useSpecFilter.ts";
-import type { Specialization } from "../../types/types.ts";
+import type { Specialization } from "../../types/specializationTypes.ts";
 
 interface FilterSpecializationsProps {
   specs: Specialization[];

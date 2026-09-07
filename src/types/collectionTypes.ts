@@ -1,4 +1,5 @@
-import type { Specialization, User } from "./types.ts";
+import type { Specialization } from "./specializationTypes.ts";
+import type { User } from "./types.ts";
 
 export interface GetCollectionsParams {
   currentPage?: number;

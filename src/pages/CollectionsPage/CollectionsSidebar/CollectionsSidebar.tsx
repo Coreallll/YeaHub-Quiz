@@ -3,24 +3,20 @@ import SearchFilter from "../../../components/Filters/SearchFilter.tsx";
 import FilterSpecializations from "../../../components/Filters/FilterSpecializations.tsx";
 import CollectionsSidebarSkeleton from "./CollectionsSidebarSkeleton.tsx";
 import FilterAccess from "../../../components/Filters/FiltersAccess.tsx";
-import { useGetSpecializationsQuery } from "../../../store/api/specializationsApi.ts";
+import { useSpecializations } from "../../../hooks/useSpecializations.ts";
 
 interface CollectionsSidebarProps {
   className?: string;
 }
 
 export default function CollectionsSidebar({ className = "" }: CollectionsSidebarProps) {
-  const {
-    data: specs = [],
-    isLoading: isSidebarLoading,
-    error: sidebarFiltersError,
-  } = useGetSpecializationsQuery();
+  const { specs, isSpecsLoading, isSpecsError } = useSpecializations();
 
   return (
     <aside className={`${styles.sidebar} ${className}`}>
-      {sidebarFiltersError ? (
+      {isSpecsError ? (
         <p>Произошла ошибка при загрузке фильтров</p>
-      ) : isSidebarLoading ? (
+      ) : isSpecsLoading ? (
         <CollectionsSidebarSkeleton />
       ) : (
         <>

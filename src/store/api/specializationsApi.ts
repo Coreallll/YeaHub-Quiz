@@ -1,12 +1,14 @@
 import { baseApi } from "./baseApi.ts";
-import type { Specialization, SpecializationsResponse } from "../../types/types.ts";
+import type { Specialization, SpecializationsResponse } from "../../types/specializationTypes.ts";
 
 export const specializationsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSpecializations: builder.query<Specialization[], void>({
-      query: () => ({
+    getSpecializations: builder.query<Specialization[], number | void>({
+      query: (specLimit) => ({
         url: "specializations",
-        params: { limit: 30 },
+        params: {
+          ...(specLimit !== undefined && { limit: specLimit }),
+        },
       }),
       transformResponse: (response: SpecializationsResponse) => response.data,
     }),

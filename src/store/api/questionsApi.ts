@@ -1,9 +1,9 @@
 import { baseApi } from "./baseApi.ts";
-import type { GetQuestionsItemsParams, QuestionsResponse } from "../../types/questionTypes.ts";
+import type { QuestionsParams, QuestionsResponse } from "../../types/questionTypes.ts";
 
 export const questionsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuestions: builder.query<QuestionsResponse, GetQuestionsItemsParams>({
+    getQuestions: builder.query<QuestionsResponse, QuestionsParams>({
       query: ({ currentPage, cardsOnPage, specFilter, collectionId }) => ({
         url: "questions/public-questions",
         params: {
