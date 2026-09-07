@@ -5,10 +5,10 @@ import type { Question } from "../../types/questionTypes.ts";
 export const quizApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getQuizQuestions: builder.query<Question[], QuizParams>({
-      query: ({ specs, skills, complexity, quizQuestionsLimit }) => ({
+      query: ({ spec, skills, complexity, quizQuestionsLimit }) => ({
         url: "interview-preparation/quizzes/mock/new",
         params: {
-          ...(specs && { specialization: specs }),
+          ...(spec && { specialization: spec }),
           ...(skills && { skills: skills }),
           ...(complexity && { complexity: complexity }),
           ...(quizQuestionsLimit && { limit: quizQuestionsLimit }),

@@ -4,7 +4,7 @@ import type { QuizFormValues } from "../pages/QuizPage/QuizPage.tsx";
 
 export const useQuizQuestions = () => {
   const { getValues } = useFormContext<QuizFormValues>();
-  const specs = getValues("specs");
+  const spec = getValues("spec");
   const skills = getValues("skills");
   const complexity = getValues("complexity");
   const quizQuestionsLimit = getValues("questionsLimit");
@@ -14,7 +14,7 @@ export const useQuizQuestions = () => {
     isLoading: isQuizQuestionsLoading,
     isError: isQuizQuestionsError,
   } = useGetQuizQuestionsQuery({
-    specs,
+    spec,
     skills,
     complexity,
     quizQuestionsLimit,
