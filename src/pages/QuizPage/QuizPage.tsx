@@ -3,8 +3,9 @@ import QuizComplexity from "../../components/Quiz/Filters/QuizComplexity.tsx";
 import QuizSkills from "../../components/Quiz/Filters/QuizSkills.tsx";
 import QuizQuestionsLimit from "../../components/Quiz/Filters/QuizQuestionsLimit.tsx";
 import styles from "./QuizPage.module.css";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import ArrowRight from "../../assets/icons/quizArrowRightBtn.svg?react";
+import { useQuizForm } from "../../hooks/useQuizForm.ts";
 
 export interface QuizFormValues {
   spec: number;
@@ -14,18 +15,7 @@ export interface QuizFormValues {
 }
 
 export default function QuizPage() {
-  const methods = useForm<QuizFormValues>({
-    defaultValues: {
-      spec: 11,
-      skills: [],
-      complexity: [],
-      questionsLimit: 1,
-    },
-  });
-
-  function onSubmit(data: QuizFormValues) {
-    console.log(data);
-  }
+  const { methods, onSubmit } = useQuizForm();
 
   return (
     <div className={styles.quizWrapper}>
