@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import Skeleton from "../ui/Skeleton/Skeleton.tsx";
 import styles from "./Questions.module.css";
-import type { Collection } from "../../store/api/collectionsApi.ts";
 import { useSpecFilter } from "../../hooks/useSpecFilter.ts";
+import type { Collection } from "../../types/collectionTypes.ts";
 
 interface QuestionsTitleProps {
   collection: Collection;
@@ -12,7 +12,7 @@ interface QuestionsTitleProps {
 export default function QuestionsTitle({ collection, isQuestionsLoading }: QuestionsTitleProps) {
   const { specFilter } = useSpecFilter();
 
-  const currentSpec = collection?.specializations?.find((spec) => spec.id === String(specFilter));
+  const currentSpec = collection?.specializations?.find((spec) => spec.id === Number(specFilter));
   const specTitle = currentSpec?.title;
 
   useEffect(() => {

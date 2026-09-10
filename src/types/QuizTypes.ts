@@ -1,10 +1,10 @@
 import type { Question } from "./questionTypes.ts";
 
 export interface QuizParams {
-  spec: number;
+  specialization: number;
   skills: number[];
   complexity: number[];
-  quizQuestionsLimit: number;
+  limit: number;
 }
 export interface QuizResponse {
   questions: Question[];

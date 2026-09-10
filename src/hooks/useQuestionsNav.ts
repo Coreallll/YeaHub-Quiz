@@ -1,9 +1,9 @@
 import type { Question } from "../types/questionTypes.ts";
 
-export const useQuestionNav = (questionsData: Question[], questionId: string) => {
+export const useQuestionNav = (questions: Question[], questionId: number) => {
   const currentQuestionId = Number(questionId);
 
-  const questionIds = questionsData.map((question) => question.id);
+  const questionIds = questions.map((question) => question.id);
 
   const currentIndex = questionIds.findIndex((id) => id === currentQuestionId);
 

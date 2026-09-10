@@ -4,14 +4,14 @@ import styles from "./QuizFilters.module.css";
 
 export default function QuizQuestionsLimit() {
   const { watch, setValue } = useFormContext<QuizFormValues>();
-  const quizQuestionsLimit = watch("questionsLimit");
+  const quizQuestionsLimit = watch("limit");
 
   function countDecrement() {
     if (quizQuestionsLimit <= 1) return;
-    setValue("questionsLimit", quizQuestionsLimit - 1);
+    setValue("limit", quizQuestionsLimit - 1);
   }
   function countIncrement() {
-    setValue("questionsLimit", quizQuestionsLimit + 1);
+    setValue("limit", quizQuestionsLimit + 1);
   }
 
   return (
@@ -19,6 +19,7 @@ export default function QuizQuestionsLimit() {
       <h3 className={styles.sectionTitle}>Количество вопросов</h3>
       <div className={styles.counter}>
         <button
+          type="button"
           className={styles.counterBtn}
           onClick={countDecrement}
         >
@@ -26,6 +27,7 @@ export default function QuizQuestionsLimit() {
         </button>
         <span className={styles.counterNumber}>{quizQuestionsLimit}</span>
         <button
+          type="button"
           className={styles.counterBtn}
           onClick={countIncrement}
         >

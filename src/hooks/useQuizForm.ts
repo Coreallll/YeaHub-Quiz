@@ -2,45 +2,42 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { QuizFormValues } from "../pages/QuizPage/QuizPage.tsx";
 import { useEffect } from "react";
+import { setQuizParams } from "../components/Quiz/quizSlice.ts";
+import { useAppDispatch } from "./hooks.ts";
 
 export const useQuizForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+
   const methods = useForm<QuizFormValues>({
     defaultValues: {
-      spec: Number(searchParams.get("spec") ?? 11),
+      specialization: Number(searchParams.get("specialization") ?? 11),
       skills: searchParams.get("skills")?.split(",").map(Number) ?? [],
-      complexity: searchParams.get("complexity")?.split(",").map(Number) ?? [],
-      questionsLimit: Number(searchParams.get("limit") ?? 1),
+      complexity: searchParams.get("complexity")?.split(",").map(Number) ?? [1, 2, 3],
+      limit: Number(searchParams.get("limit") ?? 1),
     },
   });
 
   function onSubmit(data: QuizFormValues) {
+    dispatch(setQuizParams(data));
+    navigate("/quiz/questions", {
+      state: data,
+    });
     console.log(data);
-    const params = new URLSearchParams();
-
-    if (data.spec !== null) {
-      params.set("spec", String(data.spec));
-    }
-
-    params.set("skills", data.skills.join(","));
-    params.set("complexity", data.complexity.join(","));
-    params.set("questionsLimit", String(data.questionsLimit));
-
-    navigate(`/quiz?${params.toString()}`);
   }
 
-  const spec = methods.watch("spec");
+  const specialization = methods.watch("specialization");
   const skills = methods.watch("skills");
   const complexity = methods.watch("complexity");
-  const questionsLimit = methods.watch("questionsLimit");
+  const limit = methods.watch("limit");
 
   useEffect(() => {
     const params = new URLSearchParams();
 
-    if (spec !== null) {
-      params.set("spec", String(spec));
+    if (specialization !== null) {
+      params.set("specialization", String(specialization));
     }
 
     if (skills.length > 0) {
@@ -51,14 +48,14 @@ export const useQuizForm = () => {
       params.set("complexity", complexity.join(","));
     }
 
-    if (questionsLimit >= 1) {
-      params.set("questionsLimit", String(questionsLimit));
+    if (limit >= 1) {
+      params.set("limit", String(limit));
     }
 
     setSearchParams(params, {
       replace: true,
     });
-  }, [spec, skills, complexity, questionsLimit, setSearchParams]);
+  }, [specialization, skills, complexity, limit, setSearchParams]);
 
   return { methods, onSubmit };
 };

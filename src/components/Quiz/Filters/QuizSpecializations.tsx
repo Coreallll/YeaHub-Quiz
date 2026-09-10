@@ -7,10 +7,10 @@ import { useState } from "react";
 
 export default function QuizSpecializations() {
   const { watch, setValue } = useFormContext<QuizFormValues>();
-  const selectedSpec = watch("spec");
+  const selectedSpec = watch("specialization");
 
   function selectSpec(id: number) {
-    setValue("spec", id);
+    setValue("specialization", id);
   }
 
   const { specs } = useSpecializations(20);
@@ -23,16 +23,16 @@ export default function QuizSpecializations() {
     <section>
       <h3 className={styles.sectionTitle}>Выбор специализации</h3>
       <ul className={styles.filtersList}>
-        {visibleSpecs.map((spec) => {
-          const isSelected = selectedSpec === spec.id;
+        {visibleSpecs.map((specialization) => {
+          const isSelected = selectedSpec === specialization.id;
 
           return (
-            <li key={spec.id}>
+            <li key={specialization.id}>
               <FilterButton
-                onClick={() => selectSpec(spec.id)}
+                onClick={() => selectSpec(specialization.id)}
                 className={isSelected ? styles.active : ""}
               >
-                {spec.title}
+                {specialization.title}
               </FilterButton>
             </li>
           );

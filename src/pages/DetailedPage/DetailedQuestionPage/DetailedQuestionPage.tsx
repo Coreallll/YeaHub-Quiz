@@ -19,11 +19,11 @@ export default function DetailedQuestionPage() {
   const { questionId } = useParams();
 
   const { data: question, isLoading: isQuestionLoading } = useGetQuestionByIdQuery(
-    String(questionId),
+    Number(questionId),
   );
   const { isPrevDisabled, isNextDisabled, prevQuestionId, nextQuestionId } = useQuestionNav(
     questionsData,
-    String(questionId),
+    Number(questionId),
   );
 
   if (isQuestionLoading) {

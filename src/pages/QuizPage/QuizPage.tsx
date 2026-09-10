@@ -8,10 +8,10 @@ import ArrowRight from "../../assets/icons/quizArrowRightBtn.svg?react";
 import { useQuizForm } from "../../hooks/useQuizForm.ts";
 
 export interface QuizFormValues {
-  spec: number;
+  specialization: number;
   skills: number[];
   complexity: number[];
-  questionsLimit: number;
+  limit: number;
 }
 
 export default function QuizPage() {

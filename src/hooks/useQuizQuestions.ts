@@ -1,27 +1,47 @@
 import { useGetQuizQuestionsQuery } from "../store/api/quizApi.ts";
-import { useFormContext } from "react-hook-form";
-import type { QuizFormValues } from "../pages/QuizPage/QuizPage.tsx";
+import { useAppDispatch, useAppSelector } from "./hooks.ts";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { useEffect } from "react";
+import { setCurrentQuestionId, setQuestions } from "../components/Quiz/quizSlice.ts";
 
 export const useQuizQuestions = () => {
-  const { getValues } = useFormContext<QuizFormValues>();
-  const spec = getValues("spec");
-  const skills = getValues("skills");
-  const complexity = getValues("complexity");
-  const quizQuestionsLimit = getValues("questionsLimit");
+  const quizParams = useAppSelector((state) => state.quizState.params);
+
+  const queryArgs = quizParams
+    ? {
+        specialization: quizParams.specialization,
+        skills: quizParams.skills,
+        complexity: quizParams.complexity,
+        limit: quizParams.limit,
+      }
+    : skipToken;
 
   const {
-    data: quizQuestions,
+    data: quizQuestions = [],
     isLoading: isQuizQuestionsLoading,
     isError: isQuizQuestionsError,
-  } = useGetQuizQuestionsQuery({
-    spec,
-    skills,
-    complexity,
-    quizQuestionsLimit,
-  });
+  } = useGetQuizQuestionsQuery(queryArgs);
+
+  const dispatch = useAppDispatch();
+
+  const questions = useAppSelector((state) => state.quizState.questions);
+
+  const currentQuestionId = useAppSelector((state) => state.quizState.currentQuestionId);
+
+  useEffect(() => {
+    if (quizQuestions.length > 0 && questions.length === 0) {
+      dispatch(setQuestions(quizQuestions));
+
+      dispatch(setCurrentQuestionId(quizQuestions[0].id));
+    }
+  }, [quizQuestions, currentQuestionId, dispatch]);
+
+  const currentQuestion = questions.find((question) => question.id === currentQuestionId);
 
   return {
-    quizQuestions,
+    questions,
+    currentQuestion,
+    currentQuestionId,
     isQuizQuestionsLoading,
     isQuizQuestionsError,
   };

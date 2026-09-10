@@ -4,21 +4,19 @@ import DetailedSidebarTags from "../../DetailedSidebar/DetailedSidebarTags.tsx";
 import DetailedSidebarAuthor from "../../DetailedSidebar/DetailedSidebarAuthor.tsx";
 import DetailedSidebarSkeleton from "../../DetailedSidebar/DetailedSidebarSkeleton.tsx";
 import FilterSection from "../../../../components/Filters/FilterSection.tsx";
-import type {QuestionItem} from "../../../../api/getQuestionsData.ts";
+import type { Question } from "../../../../types/questionTypes.ts";
 
 interface DetailedQuestionPageSidebarProps {
-  question: QuestionItem | null;
+  question: Question | null;
   isQuestionLoading?: boolean;
   className?: string;
 }
 
-export default function DetailedQuestionPageSidebar(
-  {
-    question,
-    isQuestionLoading,
-    className =""
-  }:DetailedQuestionPageSidebarProps) {
-
+export default function DetailedQuestionPageSidebar({
+  question,
+  isQuestionLoading,
+  className = "",
+}: DetailedQuestionPageSidebarProps) {
   return (
     <aside className={`${stylesSidebar.sidebar} ${className}`}>
       {isQuestionLoading ? (
@@ -26,7 +24,7 @@ export default function DetailedQuestionPageSidebar(
       ) : (
         question && (
           <>
-            <QuestionComplexity question={question}/>
+            <QuestionComplexity question={question} />
             <FilterSection
               title="Навыки:"
               items={question?.questionSkills}
@@ -40,5 +38,5 @@ export default function DetailedQuestionPageSidebar(
         )
       )}
     </aside>
-  )
+  );
 }

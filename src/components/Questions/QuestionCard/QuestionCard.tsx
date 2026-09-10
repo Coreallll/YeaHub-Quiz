@@ -1,13 +1,13 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./QuestionCard.module.css";
 import arrowIcon from "../../../assets/icons/arrow.svg";
 import arrowRightDetailed from "../../../assets/icons/arrowRightDetailed.svg";
 import RenderAnswer from "./RenderAnswer.js";
-import {useNavigate, useParams} from "react-router-dom";
-import type {QuestionItem} from "../../../api/getQuestionsData.ts";
+import { useNavigate, useParams } from "react-router-dom";
+import type { Question } from "../../../types/questionTypes.ts";
 
 interface QuestionCardProps {
-  question: QuestionItem;
+  question: Question;
 }
 
 export default function QuestionCard({ question }: QuestionCardProps) {
@@ -20,7 +20,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
   const { collectionId } = useParams();
 
   useEffect(() => {
-    console.log(collectionId)
+    console.log(collectionId);
     if (!contentRef.current) return;
     setHeight(open ? contentRef.current.scrollHeight : 0);
   }, [open]);
@@ -29,17 +29,21 @@ export default function QuestionCard({ question }: QuestionCardProps) {
     <li className={`${styles.cardWrapper} ${open ? styles.cardOpen : ""}`}>
       <h2
         className={styles.questionTitle}
-        onClick={() => setOpen(prev => !prev)}
+        onClick={() => setOpen((prev) => !prev)}
       >
         <span className={styles.questionTitleText}>{question.title}</span>
-        <img className={styles.questionTitleArrow} src={arrowIcon} alt="Стрелка"/>
+        <img
+          className={styles.questionTitleArrow}
+          src={arrowIcon}
+          alt="Стрелка"
+        />
       </h2>
 
       <div
         ref={contentRef}
         className={styles.answerWrapper}
         style={{
-          height:`${height}px`
+          height: `${height}px`,
         }}
       >
         <div className={styles.rating}>
@@ -53,17 +57,20 @@ export default function QuestionCard({ question }: QuestionCardProps) {
           </div>
         </div>
         <div className={styles.answer}>
-          <RenderAnswer answer={question.shortAnswer}/>
+          <RenderAnswer answer={question.shortAnswer} />
         </div>
         <button
           className={styles.detailedBtn}
           onClick={() => navigate(`/collections/${collectionId}/questions/${question.id}`)}
         >
           Подробнее
-          <img className={styles.detailedBtnIcon} src={arrowRightDetailed} alt="Стрелка"/>
+          <img
+            className={styles.detailedBtnIcon}
+            src={arrowRightDetailed}
+            alt="Стрелка"
+          />
         </button>
       </div>
     </li>
-
-  )
-};
+  );
+}

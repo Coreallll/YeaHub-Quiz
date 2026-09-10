@@ -4,6 +4,7 @@ import CollectionsPage from "./pages/CollectionsPage/CollectionsPage.tsx";
 import DetailedCollectionPage from "./pages/DetailedPage/DetailedCollectionPage/DetailedCollectionPage.tsx";
 import DetailedQuestionPage from "./pages/DetailedPage/DetailedQuestionPage/DetailedQuestionPage.tsx";
 import QuizPage from "./pages/QuizPage/QuizPage.tsx";
+import QuizQuestionsPage from "./pages/QuizPage/QuizQuestionsPage.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/quiz",
         element: <QuizPage />,
+      },
+      {
+        path: "/quiz/questions",
+        element: <QuizQuestionsPage />,
       },
     ],
   },
