@@ -5,6 +5,7 @@ import DetailedCollectionPage from "./pages/DetailedPage/DetailedCollectionPage/
 import DetailedQuestionPage from "./pages/DetailedPage/DetailedQuestionPage/DetailedQuestionPage.tsx";
 import QuizPage from "./pages/QuizPage/QuizPage.tsx";
 import QuizQuestionsPage from "./pages/QuizPage/QuizQuestionsPage.tsx";
+import QuizStatisticPage from "./pages/QuizPage/QuizStatisticPage.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/quiz/questions",
         element: <QuizQuestionsPage />,
+      },
+      {
+        path: "/quiz/statistic",
+        element: <QuizStatisticPage />,
       },
     ],
   },

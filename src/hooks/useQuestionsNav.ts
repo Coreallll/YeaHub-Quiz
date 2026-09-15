@@ -24,5 +24,6 @@ export const useQuestionNav = (questions: Question[], questionId: number) => {
 
     prevQuestionId,
     nextQuestionId,
+    currentIndex,
   };
 };

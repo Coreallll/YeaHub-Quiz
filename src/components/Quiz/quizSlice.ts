@@ -3,11 +3,19 @@ import type { QuizFormValues } from "../../pages/QuizPage/QuizPage.tsx";
 import type { Question } from "../../types/questionTypes.ts";
 import type { QuizParams } from "../../types/QuizTypes.ts";
 
+type QuizAnswerStatus = "KNOWN" | "UNKNOWN";
+
+interface QuizAnswer {
+  questionId: number;
+  questionTitle: string;
+  answer: QuizAnswerStatus;
+}
+
 interface QuizState {
   params: QuizParams | null;
   questions: Question[];
   currentQuestionId: number | null;
-  // answers: QuizAnswer[];
+  answers: QuizAnswer[];
 }
 
 const savedQuiz = sessionStorage.getItem("quizState");
@@ -18,7 +26,7 @@ const initialState: QuizState = savedQuiz
       params: null,
       questions: [],
       currentQuestionId: null,
-      // answers: [],
+      answers: [],
     };
 
 const quizStateSlice = createSlice({
@@ -30,13 +38,28 @@ const quizStateSlice = createSlice({
     },
     setQuizParams(state, action: PayloadAction<QuizFormValues>) {
       state.params = action.payload;
+
+      state.questions = [];
+      state.currentQuestionId = null;
+      state.answers = [];
     },
     setCurrentQuestionId(state, action: PayloadAction<number>) {
       state.currentQuestionId = action.payload;
     },
+    setQuizAnswer(state, action: PayloadAction<QuizAnswer>) {
+      const existingQuizAnswer = state.answers.find(
+        (question) => question.questionId === action.payload.questionId,
+      );
+      if (existingQuizAnswer) {
+        existingQuizAnswer.answer = action.payload.answer;
+      } else {
+        state.answers.push(action.payload);
+      }
+    },
   },
 });
 
-export const { setQuestions, setQuizParams, setCurrentQuestionId } = quizStateSlice.actions;
+export const { setQuestions, setQuizParams, setCurrentQuestionId, setQuizAnswer } =
+  quizStateSlice.actions;
 
 export default quizStateSlice.reducer;

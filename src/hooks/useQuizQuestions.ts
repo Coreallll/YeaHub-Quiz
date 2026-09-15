@@ -1,8 +1,9 @@
 import { useGetQuizQuestionsQuery } from "../store/api/quizApi.ts";
 import { useAppDispatch, useAppSelector } from "./hooks.ts";
 import { skipToken } from "@reduxjs/toolkit/query";
-import { useEffect } from "react";
-import { setCurrentQuestionId, setQuestions } from "../components/Quiz/quizSlice.ts";
+import { useEffect, useRef, useState } from "react";
+import { setCurrentQuestionId, setQuestions, setQuizAnswer } from "../components/Quiz/quizSlice.ts";
+import { useQuestionNav } from "./useQuestionsNav.ts";
 
 export const useQuizQuestions = () => {
   const quizParams = useAppSelector((state) => state.quizState.params);
@@ -38,11 +39,78 @@ export const useQuizQuestions = () => {
 
   const currentQuestion = questions.find((question) => question.id === currentQuestionId);
 
+  const answers = useAppSelector((state) => state.quizState.answers);
+
+  const currentAnswer = answers.find((answer) => answer.questionId === currentQuestion?.id);
+
+  const { isPrevDisabled, isNextDisabled, prevQuestionId, nextQuestionId, currentIndex } =
+    useQuestionNav(questions, Number(currentQuestionId));
+  const currentQuestionCount = currentIndex + 1;
+
+  function handlePrevQuestion() {
+    if (prevQuestionId === null) return;
+    dispatch(setCurrentQuestionId(prevQuestionId));
+  }
+  function handleNextQuestion() {
+    if (nextQuestionId === null) return;
+    dispatch(setCurrentQuestionId(nextQuestionId));
+  }
+
+  const [openAnswer, setOpenAnswer] = useState(false);
+  const answerRef = useRef<HTMLDivElement>(null);
+  const [heightAnswer, setHeightAnswer] = useState(0);
+
+  useEffect(() => {
+    console.log(currentQuestion);
+    if (!answerRef.current) return;
+    setHeightAnswer(openAnswer ? answerRef.current.scrollHeight : 0);
+  }, [openAnswer]);
+
+  function handleAnswerKnown() {
+    if (!currentQuestion) return;
+    dispatch(
+      setQuizAnswer({
+        questionId: currentQuestion.id,
+        questionTitle: currentQuestion.title,
+        answer: "KNOWN",
+      }),
+    );
+  }
+  function handleAnswerUnknown() {
+    if (!currentQuestion) return;
+    dispatch(
+      setQuizAnswer({
+        questionId: currentQuestion.id,
+        questionTitle: currentQuestion.title,
+        answer: "UNKNOWN",
+      }),
+    );
+  }
+
   return {
     questions,
     currentQuestion,
     currentQuestionId,
     isQuizQuestionsLoading,
     isQuizQuestionsError,
+
+    handlePrevQuestion,
+    handleNextQuestion,
+
+    isPrevDisabled,
+    isNextDisabled,
+
+    currentQuestionCount,
+
+    openAnswer,
+    answerRef,
+    heightAnswer,
+    setOpenAnswer,
+
+    handleAnswerKnown,
+    handleAnswerUnknown,
+
+    answers,
+    currentAnswer,
   };
 };

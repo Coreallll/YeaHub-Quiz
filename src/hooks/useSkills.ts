@@ -4,7 +4,7 @@ import { useGetSkillsQuery } from "../store/api/skillsApi.ts";
 
 export const useSkills = (skillsLimit?: number) => {
   const { getValues } = useFormContext<QuizFormValues>();
-  const spec = getValues("spec");
+  const spec = getValues("specialization");
 
   const {
     data: skills = [],

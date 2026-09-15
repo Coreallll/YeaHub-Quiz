@@ -15,7 +15,7 @@ export const useQuizForm = () => {
     defaultValues: {
       specialization: Number(searchParams.get("specialization") ?? 11),
       skills: searchParams.get("skills")?.split(",").map(Number) ?? [],
-      complexity: searchParams.get("complexity")?.split(",").map(Number) ?? [1, 2, 3],
+      complexity: searchParams.get("complexity")?.split(",").map(Number) ?? [],
       limit: Number(searchParams.get("limit") ?? 1),
     },
   });
