@@ -25,13 +25,15 @@ export default function QuizPage() {
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <FormProvider {...methods}>
-          <div className={styles.fetchBlocks}>
-            <QuizSpecializations />
-            <QuizSkills />
-          </div>
-          <div className={styles.staticBlocks}>
-            <QuizComplexity />
-            <QuizQuestionsLimit />
+          <div className={styles.quizFormFilters}>
+            <div className={styles.fetchBlocks}>
+              <QuizSpecializations />
+              <QuizSkills />
+            </div>
+            <div className={styles.staticBlocks}>
+              <QuizComplexity />
+              <QuizQuestionsLimit />
+            </div>
           </div>
         </FormProvider>
         <button

@@ -29,6 +29,10 @@ export const useQuizQuestions = () => {
 
   const currentQuestionId = useAppSelector((state) => state.quizState.currentQuestionId);
 
+  const [openAnswer, setOpenAnswer] = useState(false);
+  const answerRef = useRef<HTMLDivElement>(null);
+  const [heightAnswer, setHeightAnswer] = useState(0);
+
   useEffect(() => {
     if (quizQuestions.length > 0 && questions.length === 0) {
       dispatch(setQuestions(quizQuestions));
@@ -50,15 +54,13 @@ export const useQuizQuestions = () => {
   function handlePrevQuestion() {
     if (prevQuestionId === null) return;
     dispatch(setCurrentQuestionId(prevQuestionId));
+    setOpenAnswer(false);
   }
   function handleNextQuestion() {
     if (nextQuestionId === null) return;
     dispatch(setCurrentQuestionId(nextQuestionId));
+    setOpenAnswer(false);
   }
-
-  const [openAnswer, setOpenAnswer] = useState(false);
-  const answerRef = useRef<HTMLDivElement>(null);
-  const [heightAnswer, setHeightAnswer] = useState(0);
 
   useEffect(() => {
     console.log(currentQuestion);

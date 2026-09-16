@@ -37,7 +37,18 @@ export default function QuizQuestionsPage() {
     return <p>Загрузка...</p>;
   }
   if (!currentQuestion || isQuizQuestionsError) {
-    return <p>Ошибка при загрузке вопроса</p>;
+    return (
+      <div className={styles.quizWrapper}>
+        <button
+          className={styles.navBackBtn}
+          onClick={() => navigate("/quiz")}
+        >
+          <ArrowRight className={styles.navBackIcon} />
+          Назад
+        </button>
+        <p>Ошибка при загрузке вопросов</p>
+      </div>
+    );
   }
 
   return (
@@ -116,6 +127,7 @@ export default function QuizQuestionsPage() {
           </div>
           {currentQuestion?.imageSrc && (
             <img
+              className={styles.quizQuestionImg}
               src={currentQuestion.imageSrc}
               alt=""
             />
