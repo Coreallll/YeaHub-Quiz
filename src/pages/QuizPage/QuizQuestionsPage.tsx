@@ -29,16 +29,16 @@ export default function QuizQuestionsPage() {
     currentAnswer,
   } = useQuizQuestions();
 
+  const progress = (currentQuestionCount / questions.length) * 100;
+
+  const navigate = useNavigate();
+
   if (isQuizQuestionsLoading) {
     return <p>Загрузка...</p>;
   }
   if (!currentQuestion || isQuizQuestionsError) {
     return <p>Ошибка при загрузке вопроса</p>;
   }
-
-  const progress = (currentQuestionCount / questions.length) * 100;
-
-  const navigate = useNavigate();
 
   return (
     <div className={styles.quizPageWrap}>

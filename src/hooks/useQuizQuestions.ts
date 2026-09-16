@@ -35,7 +35,7 @@ export const useQuizQuestions = () => {
 
       dispatch(setCurrentQuestionId(quizQuestions[0].id));
     }
-  }, [quizQuestions, currentQuestionId, dispatch]);
+  }, [quizQuestions, questions, dispatch]);
 
   const currentQuestion = questions.find((question) => question.id === currentQuestionId);
 
