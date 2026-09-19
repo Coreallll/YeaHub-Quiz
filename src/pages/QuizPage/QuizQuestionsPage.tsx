@@ -33,6 +33,8 @@ export default function QuizQuestionsPage() {
 
   const navigate = useNavigate();
 
+  const isFinishDisabled = !isNextDisabled || currentAnswer?.answer === undefined;
+
   if (isQuizQuestionsLoading) {
     return <p>Загрузка...</p>;
   }
@@ -135,8 +137,8 @@ export default function QuizQuestionsPage() {
         </div>
         {}
         <button
-          disabled={!isNextDisabled}
-          className={`${styles.finishQuizBtn} ${!isNextDisabled && styles.disabled}`}
+          disabled={isFinishDisabled}
+          className={`${styles.finishQuizBtn} ${isFinishDisabled ? styles.disabled : ""}`}
           onClick={() => navigate("/quiz/statistic")}
         >
           Завершить
