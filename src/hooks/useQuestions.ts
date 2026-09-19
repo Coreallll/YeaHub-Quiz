@@ -1,35 +1,37 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { usePagination } from "./usePagination.ts";
-import { useGetQuestionsQuery } from "../store/api/questionsApi.ts";
+import { useGetDetailedQuestionsQuery } from "../store/api/questionsApi.ts";
 import { useCollectionFilters } from "./useCollectionFilters.ts";
 import { useParams } from "react-router-dom";
 
 export const useQuestions = () => {
-  const [totalQuestionsPages, setTotalQuestionsPages] = useState(1);
-  const { currentPage, cardsOnPage } = usePagination(totalQuestionsPages);
+  const { currentPage, cardsOnPage, changePage } = usePagination();
   const { specFilter } = useCollectionFilters();
   const { collectionId } = useParams();
 
   const {
-    data: response,
+    data: questions,
     isLoading: isQuestionsLoading,
     isError: isQuestionError,
-  } = useGetQuestionsQuery({
-    currentPage,
-    cardsOnPage,
-    specFilter,
-    collectionId,
-  });
+    isFetching: isQuestionsFetching,
+  } = useGetDetailedQuestionsQuery({ specFilter, collectionId: Number(collectionId) });
 
-  const [syncedQuestionsResponse, setSyncedQuestionsResponse] = useState(response);
+  const totalQuestionsPages = questions ? Math.ceil(questions.length / cardsOnPage) : 0;
 
-  if (response !== syncedQuestionsResponse) {
-    setSyncedQuestionsResponse(response);
-    if (response) setTotalQuestionsPages(Math.ceil(response.total / response.limit));
-  }
+  const startPageIndex = (currentPage - 1) * cardsOnPage;
+
+  const questionsData = questions?.slice(startPageIndex, startPageIndex + cardsOnPage);
+
+  useEffect(() => {
+    if (isQuestionsFetching) return;
+    if (!questions) return;
+    if (totalQuestionsPages > 0 && currentPage > totalQuestionsPages) {
+      changePage(totalQuestionsPages);
+    }
+  }, [currentPage, totalQuestionsPages, isQuestionsFetching, questions, changePage]);
 
   return {
-    questionsData: response?.data ?? [],
+    questionsData: questionsData ?? [],
     isQuestionsLoading,
     isQuestionError,
     currentPage,

@@ -68,6 +68,10 @@
     position: relative;
     overflow: hidden;
     transition: height 0.3s ease;
+
+    code {
+        white-space: normal !important;
+    }
 }
 .gradient {
     position: absolute;

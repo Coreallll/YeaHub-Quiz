@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { QuizFormValues } from "../../pages/QuizPage/QuizPage.tsx";
 import type { Question } from "../../types/questionTypes.ts";
 import type { QuizParams } from "../../types/QuizTypes.ts";
+import { loadQuizState } from "../../utils/quizState.ts";
 
 type QuizAnswerStatus = "KNOWN" | "UNKNOWN";
 
@@ -11,23 +12,21 @@ interface QuizAnswer {
   answer: QuizAnswerStatus;
 }
 
-interface QuizState {
+export interface QuizState {
   params: QuizParams | null;
   questions: Question[];
   currentQuestionId: number | null;
   answers: QuizAnswer[];
 }
 
-const savedQuiz = sessionStorage.getItem("quizState");
+const defaultQuizState = {
+  params: null,
+  questions: [],
+  currentQuestionId: null,
+  answers: [],
+};
 
-const initialState: QuizState = savedQuiz
-  ? JSON.parse(savedQuiz)
-  : {
-      params: null,
-      questions: [],
-      currentQuestionId: null,
-      answers: [],
-    };
+const initialState: QuizState = loadQuizState() ?? defaultQuizState;
 
 const quizStateSlice = createSlice({
   name: "quizState",

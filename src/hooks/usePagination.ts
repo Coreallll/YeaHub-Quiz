@@ -1,17 +1,15 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useUrlParams } from "./useUrlParams.ts";
 
-export function usePagination(totalPages: number) {
+export function usePagination() {
   const cardsOnPage = 10;
-
   const { searchParams, setSearchParams } = useUrlParams();
   const pageFromParams = Number(searchParams.get("page") ?? 1);
   const currentPage = Number.isInteger(pageFromParams) && pageFromParams > 0 ? pageFromParams : 1;
 
   const changePage = useCallback(
     (page: number) => {
-      const lastPage = Math.max(totalPages, 1);
-      const nextPage = Math.min(Math.max(page, 1), lastPage);
+      const nextPage = Math.max(page, 1);
 
       setSearchParams((prevParams) => {
         const params = new URLSearchParams(prevParams);
@@ -20,7 +18,7 @@ export function usePagination(totalPages: number) {
         return params;
       });
     },
-    [totalPages, setSearchParams],
+    [setSearchParams],
   );
 
   function handleNextPage() {
@@ -35,17 +33,12 @@ export function usePagination(totalPages: number) {
     changePage(pageNumber);
   }
 
-  useEffect(() => {
-    if (currentPage > totalPages && totalPages > 0) {
-      changePage(totalPages);
-    }
-  }, [currentPage, totalPages, changePage]);
-
   return {
     cardsOnPage,
     currentPage,
     handleNextPage,
     handlePrevPage,
     handlePageClick,
+    changePage,
   };
 }

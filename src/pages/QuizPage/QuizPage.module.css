@@ -217,11 +217,15 @@
     color: var(--red600);
     transition: background-color 0.2s ease-in-out;
 
-    &:hover {
+    &:not(:disabled):hover {
         background-color: #fbbdcc;
     }
-    &:active {
+    &:not(:disabled):active {
         background-color: #fdadc0;
+    }
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 }
 

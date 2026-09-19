@@ -6,7 +6,7 @@ import type { Collection } from "../../../types/collectionTypes.ts";
 
 interface DetailedCollectionSidebarProps {
   collection: Collection;
-  className?: string;
+  className?: string | undefined;
 }
 
 export default function DetailedCollectionPageSidebar({

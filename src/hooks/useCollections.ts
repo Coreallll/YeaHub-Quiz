@@ -1,34 +1,49 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { usePagination } from "./usePagination.ts";
 import { useGetCollectionsQuery } from "../store/api/collectionsApi.ts";
 import { useCollectionFilters } from "./useCollectionFilters.ts";
 
 export const useCollections = () => {
-  const [totalCollectionsPages, setTotalCollectionsPages] = useState(1);
-  const { currentPage, cardsOnPage } = usePagination(totalCollectionsPages);
+  const { currentPage, cardsOnPage, changePage } = usePagination();
   const { specFilter, searchFilter, isFree } = useCollectionFilters();
 
   const {
-    data: response,
+    data: collections,
     isError,
     isLoading: isCollectionsLoading,
+    isFetching: isCollectionsFetching,
   } = useGetCollectionsQuery({
-    currentPage,
-    cardsOnPage,
     specs: specFilter,
     search: searchFilter,
     accessFilter: isFree,
   });
 
-  const [syncedCollectionsResponse, setSyncedCollectionsResponse] = useState(response);
+  const collectionsWithQuestions = collections?.filter(
+    (collection) => collection.questionsCount > 0,
+  );
 
-  if (response !== syncedCollectionsResponse) {
-    setSyncedCollectionsResponse(response);
-    if (response) setTotalCollectionsPages(Math.ceil(response.total / response.limit));
-  }
+  const totalCollectionsPages = collectionsWithQuestions
+    ? Math.ceil(collectionsWithQuestions.length / cardsOnPage)
+    : 0;
+
+  const startPageIndex = (currentPage - 1) * cardsOnPage;
+
+  const collectionsData = collectionsWithQuestions?.slice(
+    startPageIndex,
+    startPageIndex + cardsOnPage,
+  );
+
+  useEffect(() => {
+    if (isCollectionsFetching) return;
+    if (!collections) return;
+    if (totalCollectionsPages > 0 && currentPage > totalCollectionsPages) {
+      changePage(totalCollectionsPages);
+    }
+  }, [currentPage, totalCollectionsPages, isCollectionsFetching, collections, changePage]);
 
   return {
-    collectionsData: response?.data ?? [],
+    collectionsData: collectionsData ?? [],
+    isCollectionsFetching,
     isCollectionsLoading,
     isError,
     currentPage,

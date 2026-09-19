@@ -4,8 +4,8 @@ import type { Skill } from "./skillsTypes.ts";
 export interface QuestionsParams {
   currentPage: number;
   cardsOnPage: number;
-  specFilter?: string | null;
-  collectionId?: string;
+  specFilter: string | null;
+  collectionId: number;
 }
 
 export interface Question {

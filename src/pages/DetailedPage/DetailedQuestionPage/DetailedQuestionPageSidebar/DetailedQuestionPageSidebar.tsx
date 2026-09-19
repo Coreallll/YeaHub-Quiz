@@ -9,7 +9,7 @@ import type { Question } from "../../../../types/questionTypes.ts";
 interface DetailedQuestionPageSidebarProps {
   question: Question | null;
   isQuestionLoading?: boolean;
-  className?: string;
+  className?: string | undefined;
 }
 
 export default function DetailedQuestionPageSidebar({

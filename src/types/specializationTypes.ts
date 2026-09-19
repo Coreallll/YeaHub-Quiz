@@ -8,5 +8,7 @@ export interface Specialization {
 
 export interface SpecializationsResponse {
   data: Specialization[];
+  page: number;
   limit: number;
+  total: number;
 }

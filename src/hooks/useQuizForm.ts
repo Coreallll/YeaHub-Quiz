@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { QuizFormValues } from "../pages/QuizPage/QuizPage.tsx";
 import { useEffect } from "react";
@@ -25,13 +25,12 @@ export const useQuizForm = () => {
     navigate("/quiz/questions", {
       state: data,
     });
-    console.log(data);
   }
 
-  const specialization = methods.watch("specialization");
-  const skills = methods.watch("skills");
-  const complexity = methods.watch("complexity");
-  const limit = methods.watch("limit");
+  const [specialization, skills, complexity, limit] = useWatch({
+    control: methods.control,
+    name: ["specialization", "skills", "complexity", "limit"],
+  });
 
   useEffect(() => {
     const params = new URLSearchParams();

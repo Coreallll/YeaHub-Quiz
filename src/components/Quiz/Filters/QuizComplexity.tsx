@@ -36,7 +36,7 @@ export default function QuizComplexity() {
             <li key={complexity.label}>
               <FilterButton
                 onClick={() => toggleComplexity(complexity.value)}
-                className={isSelected ? styles.active : ""}
+                className={`${isSelected ? styles.active : ""}`}
               >
                 {complexity.label}
               </FilterButton>

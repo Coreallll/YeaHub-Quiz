@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./api/baseApi.ts";
 import quizStateReducer from "../components/Quiz/quizSlice.ts";
+import { saveQuizState } from "../utils/quizState.ts";
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,7 @@ const store = configureStore({
 
 store.subscribe(() => {
   const quiz = store.getState().quizState;
-  sessionStorage.setItem("quizState", JSON.stringify(quiz));
+  saveQuizState(quiz);
 });
 
 export type RootState = ReturnType<typeof store.getState>;

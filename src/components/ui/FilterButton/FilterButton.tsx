@@ -1,13 +1,13 @@
 import styles from "./FilterButton.module.css";
-import type {ReactNode} from "react";
+import type { ReactNode } from "react";
 
 interface FilterButtonProps {
   children?: ReactNode;
   onClick?: () => void;
-  className?: string;
+  className?: string | undefined;
 }
 
-export default function FilterButton({children, onClick, className = ""}: FilterButtonProps) {
+export default function FilterButton({ children, onClick, className = "" }: FilterButtonProps) {
   return (
     <button
       type="button"
@@ -16,5 +16,5 @@ export default function FilterButton({children, onClick, className = ""}: Filter
     >
       {children}
     </button>
-  )
+  );
 }

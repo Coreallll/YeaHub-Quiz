@@ -51,10 +51,10 @@
     }
     code:not(pre code) {
         padding: 2px 4px !important;
+        white-space: normal !important;
         font-size: 14px !important;
         border-radius: 3px !important;
         background: #f0f0f0 !important;
-        /*color: #26a95f;*/
         color: #f6462f !important;
     }
 }

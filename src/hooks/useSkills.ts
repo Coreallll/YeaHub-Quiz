@@ -1,16 +1,15 @@
 import { useFormContext } from "react-hook-form";
 import type { QuizFormValues } from "../pages/QuizPage/QuizPage.tsx";
 import { useGetSkillsQuery } from "../store/api/skillsApi.ts";
-
-export const useSkills = (skillsLimit?: number) => {
-  const { getValues } = useFormContext<QuizFormValues>();
-  const spec = getValues("specialization");
+export const useSkills = () => {
+  const { watch } = useFormContext<QuizFormValues>();
+  const spec = watch("specialization");
 
   const {
     data: skills = [],
     isLoading: isSkillsLoading,
     isError: isSkillsError,
-  } = useGetSkillsQuery({ skillsLimit, spec });
+  } = useGetSkillsQuery({ spec });
 
   return {
     skills,

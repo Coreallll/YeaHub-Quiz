@@ -2,11 +2,9 @@ import type { Specialization } from "./specializationTypes.ts";
 import type { User } from "./types.ts";
 
 export interface GetCollectionsParams {
-  currentPage?: number;
-  cardsOnPage?: number;
-  specs?: string;
-  search?: string;
-  accessFilter?: boolean;
+  specs: string;
+  search: string;
+  accessFilter?: boolean | undefined;
 }
 
 export interface Company {

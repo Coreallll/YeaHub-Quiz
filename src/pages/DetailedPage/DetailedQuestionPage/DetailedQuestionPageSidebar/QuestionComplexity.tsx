@@ -1,7 +1,7 @@
 import stylesSidebar from "../../../CollectionsPage/CollectionsSidebar/Sidebar.module.css";
 import stylesCard from "../../../../components/Questions/QuestionCard/QuestionCard.module.css";
 import styles from "./DetailedQuestionPageSidebar.module.css";
-import type { Question } from "../../../../api/getQuestionsData.ts";
+import type { Question } from "../../../../types/questionTypes.ts";
 
 export type QuestionProps = {
   question: Question;

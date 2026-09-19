@@ -10,8 +10,7 @@ export default function CollectionsPage() {
   const { collectionsData, isCollectionsLoading, isError, totalCollectionsPages } =
     useCollections();
 
-  const { currentPage, handleNextPage, handlePrevPage, handlePageClick } =
-    usePagination(totalCollectionsPages);
+  const { currentPage, handleNextPage, handlePrevPage, handlePageClick } = usePagination();
 
   return (
     <div className="mainWrapper">

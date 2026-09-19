@@ -7,22 +7,28 @@ import DetailedQuestionPageSkeleton from "./DetailedQuestionPageSkeleton.tsx";
 import arrowReturn from "../../../assets/icons/arrowReturn.svg";
 import DetailedQuestionPageSidebar from "./DetailedQuestionPageSidebar/DetailedQuestionPageSidebar.tsx";
 import DetailedQuestionTitle from "./DetailedQuestionTitle.tsx";
-import { useQuestions } from "../../../hooks/useQuestions.ts";
 import { useQuestionNav } from "../../../hooks/useQuestionsNav.ts";
 import { useGetQuestionByIdQuery } from "../../../store/api/questionByIdApi.ts";
+import { useGetDetailedQuestionsQuery } from "../../../store/api/questionsApi.ts";
+import { useCollectionFilters } from "../../../hooks/useCollectionFilters.ts";
 
 export default function DetailedQuestionPage() {
   const navigate = useNavigate();
 
-  const { questionsData } = useQuestions();
-
+  const { specFilter } = useCollectionFilters();
+  const { collectionId } = useParams();
   const { questionId } = useParams();
+
+  const { data: allDetailedQuestions = [] } = useGetDetailedQuestionsQuery({
+    specFilter,
+    collectionId: Number(collectionId),
+  });
 
   const { data: question, isLoading: isQuestionLoading } = useGetQuestionByIdQuery(
     Number(questionId),
   );
   const { isPrevDisabled, isNextDisabled, prevQuestionId, nextQuestionId } = useQuestionNav(
-    questionsData,
+    allDetailedQuestions,
     Number(questionId),
   );
 
@@ -44,7 +50,7 @@ export default function DetailedQuestionPage() {
     <div className="wrapper">
       <button
         className={styles.returnBtn}
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(`/collections/${collectionId}`)}
       >
         <img
           src={arrowReturn}

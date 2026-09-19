@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout.jsx";
 import CollectionsPage from "./pages/CollectionsPage/CollectionsPage.tsx";
 import DetailedCollectionPage from "./pages/DetailedPage/DetailedCollectionPage/DetailedCollectionPage.tsx";
@@ -6,12 +6,22 @@ import DetailedQuestionPage from "./pages/DetailedPage/DetailedQuestionPage/Deta
 import QuizPage from "./pages/QuizPage/QuizPage.tsx";
 import QuizQuestionsPage from "./pages/QuizPage/QuizQuestionsPage.tsx";
 import QuizStatisticPage from "./pages/QuizPage/QuizStatisticPage.tsx";
+import NotFoundPage from "./pages/NotFoundPage.tsx";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
+      {
+        index: true,
+        element: (
+          <Navigate
+            to="/collections"
+            replace
+          />
+        ),
+      },
       {
         path: "/collections",
         element: <CollectionsPage />,
@@ -35,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/quiz/statistic",
         element: <QuizStatisticPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

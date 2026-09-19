@@ -42,7 +42,7 @@ export default function DetailedCollectionPage() {
     <div className="wrapper">
       <button
         className={styles.returnBtn}
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/collections")}
       >
         <img
           src={arrowReturn}

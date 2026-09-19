@@ -6,14 +6,14 @@ import styles from "./QuizFilters.module.css";
 import { useState } from "react";
 
 export default function QuizSpecializations() {
-  const { watch, setValue } = useFormContext<QuizFormValues>();
+  const { watch, setValues } = useFormContext<QuizFormValues>();
   const selectedSpec = watch("specialization");
 
-  function selectSpec(id: number) {
-    setValue("specialization", id);
+  function selectSpec(specId: number) {
+    setValues({ specialization: specId, skills: [] });
   }
 
-  const { specs } = useSpecializations(20);
+  const { specs } = useSpecializations();
 
   const [showAllSpecs, setShowAllSpecs] = useState(false);
 
@@ -30,7 +30,7 @@ export default function QuizSpecializations() {
             <li key={specialization.id}>
               <FilterButton
                 onClick={() => selectSpec(specialization.id)}
-                className={isSelected ? styles.active : ""}
+                className={`${isSelected ? styles.active : ""}`}
               >
                 {specialization.title}
               </FilterButton>
@@ -40,6 +40,7 @@ export default function QuizSpecializations() {
       </ul>
       {specs.length > 4 ? (
         <button
+          type="button"
           className={styles.filtersAll}
           onClick={() => {
             setShowAllSpecs((prev) => !prev);

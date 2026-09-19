@@ -2,6 +2,7 @@ import styles from "./QuizPage.module.css";
 import { useQuizQuestions } from "../../hooks/useQuizQuestions.ts";
 import ThumbsUp from "../../assets/icons/thumbsUp.svg?react";
 import ArrowRight from "../../assets/icons/arrowRight.svg?react";
+import questionImage from "./questionImage.png";
 import { useNavigate } from "react-router-dom";
 
 export default function QuizStatisticPage() {
@@ -37,7 +38,7 @@ export default function QuizStatisticPage() {
                 ) : (
                   <img
                     className={styles.quizCardImg}
-                    src="/src/pages/QuizPage/questionImage.png"
+                    src={questionImage}
                     alt=""
                   />
                 )}

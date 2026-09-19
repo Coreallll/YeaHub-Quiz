@@ -9,4 +9,6 @@ export interface Skill {
 export interface SkillsResponse {
   data: Skill[];
   limit: number;
+  page: number;
+  total: number;
 }

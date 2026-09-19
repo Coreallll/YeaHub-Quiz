@@ -6,7 +6,7 @@ import FilterAccess from "../../../components/Filters/FiltersAccess.tsx";
 import { useSpecializations } from "../../../hooks/useSpecializations.ts";
 
 interface CollectionsSidebarProps {
-  className?: string;
+  className?: string | undefined;
 }
 
 export default function CollectionsSidebar({ className = "" }: CollectionsSidebarProps) {

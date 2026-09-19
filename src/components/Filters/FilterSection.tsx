@@ -48,7 +48,7 @@ export default function FilterSection<T>({
       <FilterIsFree
         title={title}
         isFree={isFree}
-        inactive={inactive}
+        inactive={inactive ?? false}
       />
     );
   }
@@ -56,7 +56,7 @@ export default function FilterSection<T>({
     return (
       <FilterQuestionsCount
         title={title}
-        inactive={inactive}
+        inactive={inactive ?? false}
         questionsCount={questionsCount}
       />
     );

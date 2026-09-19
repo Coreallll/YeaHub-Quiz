@@ -11,11 +11,11 @@ export const useQuestionNav = (questions: Question[], questionId: number) => {
 
   const isNextDisabled = currentIndex === -1 || currentIndex >= questionIds.length - 1;
 
-  const prevQuestionId = currentIndex > 0 ? questionIds[currentIndex - 1] : null;
+  const prevQuestionId = currentIndex > 0 ? (questionIds[currentIndex - 1] ?? null) : null;
 
   const nextQuestionId =
     currentIndex >= 0 && currentIndex < questionIds.length - 1
-      ? questionIds[currentIndex + 1]
+      ? (questionIds[currentIndex + 1] ?? null)
       : null;
 
   return {

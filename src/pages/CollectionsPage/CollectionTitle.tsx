@@ -33,7 +33,7 @@ export default function CollectionTitle({ isCollectionsLoading }: CollectionTitl
       <button
         ref={sidebarButtonRef}
         className={styles.filtersButton}
-        onClick={() => toggleSidebar}
+        onClick={toggleSidebar}
       >
         <img
           src={filtersBtn}

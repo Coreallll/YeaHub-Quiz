@@ -6,7 +6,7 @@ import styles from "./QuizFilters.module.css";
 import { useState } from "react";
 
 export default function QuizSkills() {
-  const { skills } = useSkills(20);
+  const { skills } = useSkills();
   const [showAllSkills, setShowAllSkills] = useState(false);
 
   const visibleSkills = showAllSkills ? skills : skills.slice(0, 20);
@@ -50,8 +50,9 @@ export default function QuizSkills() {
           );
         })}
       </ul>
-      {skills.length > 4 ? (
+      {skills.length > 20 ? (
         <button
+          type="button"
           className={styles.filtersAll}
           onClick={() => {
             setShowAllSkills((prev) => !prev);

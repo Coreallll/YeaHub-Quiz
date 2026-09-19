@@ -20,7 +20,6 @@ export default function QuestionCard({ question }: QuestionCardProps) {
   const { collectionId } = useParams();
 
   useEffect(() => {
-    console.log(collectionId);
     if (!contentRef.current) return;
     setHeight(open ? contentRef.current.scrollHeight : 0);
   }, [open]);

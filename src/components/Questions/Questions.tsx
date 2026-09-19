@@ -17,8 +17,7 @@ export default function Questions({ collection }: QuestionsProps) {
   const { questionsData, isQuestionError, totalQuestionsPages, isQuestionsLoading } =
     useQuestions();
 
-  const { currentPage, handleNextPage, handlePrevPage, handlePageClick } =
-    usePagination(totalQuestionsPages);
+  const { currentPage, handleNextPage, handlePrevPage, handlePageClick } = usePagination();
 
   const navigate = useNavigate();
 

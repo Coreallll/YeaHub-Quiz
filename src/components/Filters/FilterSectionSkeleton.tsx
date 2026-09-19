@@ -1,5 +1,5 @@
 import Skeleton from "../ui/Skeleton/Skeleton.tsx";
-import styles from './Filters.module.css'
+import styles from "./Filters.module.css";
 
 interface FilterSectionSkeletonProps {
   widthSkeletonFilter?: number;
@@ -8,8 +8,12 @@ interface FilterSectionSkeletonProps {
   showAllBtn?: boolean;
 }
 
-export default function FilterSectionSkeleton(
-  { widthSkeletonFilter, heightSkeletonFilter, borderRadiusFilter, showAllBtn }: FilterSectionSkeletonProps) {
+export default function FilterSectionSkeleton({
+  widthSkeletonFilter,
+  heightSkeletonFilter,
+  borderRadiusFilter,
+  showAllBtn,
+}: FilterSectionSkeletonProps) {
   return (
     <section className={styles.section}>
       <Skeleton
@@ -20,7 +24,7 @@ export default function FilterSectionSkeleton(
         <Skeleton
           count={2}
           width={widthSkeletonFilter}
-          height={heightSkeletonFilter || 42}
+          height={heightSkeletonFilter ?? 42}
           borderRadius={borderRadiusFilter}
         />
       </ul>
@@ -32,5 +36,5 @@ export default function FilterSectionSkeleton(
         />
       )}
     </section>
-  )
+  );
 }

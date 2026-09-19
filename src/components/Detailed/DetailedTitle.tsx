@@ -32,7 +32,7 @@ export default function DetailedTitle({
         <button
           ref={detailedSidebarButtonRef}
           className={styles.filtersButton}
-          onClick={() => toggleSidebar}
+          onClick={toggleSidebar}
         >
           <img
             src={filtersBtn}

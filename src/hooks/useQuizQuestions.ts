@@ -34,10 +34,11 @@ export const useQuizQuestions = () => {
   const [heightAnswer, setHeightAnswer] = useState(0);
 
   useEffect(() => {
-    if (quizQuestions.length > 0 && questions.length === 0) {
+    const firstQuestion = quizQuestions[0];
+    if (quizQuestions.length > 0 && questions.length === 0 && firstQuestion) {
       dispatch(setQuestions(quizQuestions));
 
-      dispatch(setCurrentQuestionId(quizQuestions[0].id));
+      dispatch(setCurrentQuestionId(firstQuestion.id));
     }
   }, [quizQuestions, questions, dispatch]);
 
@@ -53,17 +54,16 @@ export const useQuizQuestions = () => {
 
   function handlePrevQuestion() {
     if (prevQuestionId === null) return;
-    dispatch(setCurrentQuestionId(prevQuestionId));
+    dispatch(setCurrentQuestionId(Number(prevQuestionId)));
     setOpenAnswer(false);
   }
   function handleNextQuestion() {
-    if (nextQuestionId === null) return;
-    dispatch(setCurrentQuestionId(nextQuestionId));
+    if (nextQuestionId === null || currentAnswer === undefined) return;
+    dispatch(setCurrentQuestionId(Number(nextQuestionId)));
     setOpenAnswer(false);
   }
 
   useEffect(() => {
-    console.log(currentQuestion);
     if (!answerRef.current) return;
     setHeightAnswer(openAnswer ? answerRef.current.scrollHeight : 0);
   }, [openAnswer]);
@@ -114,5 +114,7 @@ export const useQuizQuestions = () => {
 
     answers,
     currentAnswer,
+
+    nextQuestionId,
   };
 };

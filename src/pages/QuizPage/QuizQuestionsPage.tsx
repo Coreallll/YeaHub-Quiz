@@ -81,7 +81,7 @@ export default function QuizQuestionsPage() {
           </button>
           <button
             disabled={isNextDisabled}
-            className={`${styles.quizNavBtn} ${isNextDisabled && styles.disabled}`}
+            className={`${styles.quizNavBtn} ${(isNextDisabled || currentAnswer === undefined) && styles.disabled}`}
             onClick={handleNextQuestion}
           >
             Далее
@@ -133,8 +133,10 @@ export default function QuizQuestionsPage() {
             />
           )}
         </div>
+        {}
         <button
-          className={styles.finishQuizBtn}
+          disabled={!isNextDisabled}
+          className={`${styles.finishQuizBtn} ${!isNextDisabled && styles.disabled}`}
           onClick={() => navigate("/quiz/statistic")}
         >
           Завершить
